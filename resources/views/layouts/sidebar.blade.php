@@ -35,7 +35,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="{{route('dosen.index')}}" class="nav-link {{ (request()->is('dosen*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Dosen Penyeleksi

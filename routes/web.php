@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Routing pengumuman
+Route::get('pengumuman/{id}/download', 'PengumumanController@download')->name('pengumuman.download');
+Route::resource('pengumuman', PengumumanController::class);
+
 // Routing persyaratan
 Route::resource('persyaratan', PersyaratanController::class);
-// Routing pengumuman
-Route::resource('pengumuman', PengumumanController::class);
+
+//Routing Dosen
+Route::resource('dosen', DosenController::class);

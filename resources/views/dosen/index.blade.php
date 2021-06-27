@@ -7,7 +7,7 @@
         <div class="col-sm-12">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>            
-            <li class="breadcrumb-item active">Pengumuman</li>
+            <li class="breadcrumb-item active">Dosen</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -21,7 +21,7 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
-            <a href="{{route('pengumuman.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
+            <a href="{{route('dosen.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -44,14 +44,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse($pengumumans as $pengumuman)
+                  @forelse($dosens as $dosen)
                   <tr>
                     <td class="text-center">{{$loop->iteration}}</td>
-                    <td>{{$pengumuman->content}}</td>
+                    <td>{{$dosen->nama_dosen}}</td>
                     <td class="text-center">
-                      <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('pengumuman.destroy', $pengumuman->id)}}" method="post">                          
-                        <a href="{{route('pengumuman.edit', $pengumuman->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                        <a onclick="return confirm('Yakin ingin mengunduh file ?');" href="{{route('pengumuman.download', $pengumuman->id)}}" target="__blank" class="btn btn-sm btn-secondary">Download</a>
+                      <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('dosen.destroy', $dosen->id)}}" method="post">                          
+                        <a href="{{route('dosen.edit', $dosen->id)}}" class="btn btn-sm btn-primary">Edit</a>                        
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
@@ -61,7 +60,7 @@
                   <tr>
                   @empty
                   <div class="alert alert-danger">
-                      Data pengumuman belum Tersedia.
+                      Data dosen belum Tersedia.
                   </div>
                   @endforelse
                 </tbody>
