@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dosen extends Model
+class RefrensiTema extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_dosen'
+        'tema',
+        'dosen_id'
     ];
-    public function refrensi_temas()
+    public function Dosen()
     {
-        return $this->hasMany(RefrensiTema::class);
-    }
+        return $this->belongsTo(Dosen::class);
+    }    
 }

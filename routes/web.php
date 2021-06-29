@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::resource('persyaratan', PersyaratanController::class);
 
 //Routing Dosen
 Route::resource('dosen', DosenController::class);
+
+//Routing Refrensi Tema
+Route::resource('refrensi-tema', RefrensiTemaController::class);
