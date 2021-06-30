@@ -11,7 +11,7 @@ class RefrensiTemaController extends Controller
     public function index()
     {
         // $refrensiTema = RefrensiTema::join('dosens','dosen_id','=','dosens.id')->get(['refrensi_temas.tema','dosens.nama_dosen']);
-        $dosens = Dosen::all();
+        $dosens = Dosen::latest()->get();
         return view('refrensi-tema.index', compact('dosens'));        
     }
     public function create()
@@ -35,6 +35,28 @@ class RefrensiTemaController extends Controller
             return redirect()->route('refrensi-tema.index')->with(['error' => 'Data gagal disimpan!!']);            
         }else{
             return redirect()->route('refrensi-tema.index')->with(['success' => 'Data berhasil disimpan!!']);
+        }
+    }
+    public function edit(RefrensiTema  $refrensiTema)
+    {        
+        return view('refrensi-tema.edit', compact('refrensiTema'));
+    }
+    public function update(Request $req, RefrensiTema $refrensiTema)
+    {
+        $this->validate($req, [
+            'tema' => 'required'
+        ]);        
+        $refrensiTema = RefrensiTema::findOrFail($refrensiTema->id);        
+        if($refrensiTema)
+        {
+            $refrensiTema->update([
+                'tema' => $req->tema                
+            ]);            
+        }
+        if(!$refrensiTema){
+            return redirect()->route('refrensi-tema.index')->with(['danger' => 'Data gagal disunting!!']);
+        }else{
+            return redirect()->route('refrensi-tema.index')->with(['success' => 'Data berhasil disunting!!']);
         }
     }
     public function destroy($id)
