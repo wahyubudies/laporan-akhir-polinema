@@ -4,18 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Persyaratan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PersyaratanController extends Controller
 {   
-    public function index()
+    public function index(Request $req)
     {
-        $persyaratans = Persyaratan::latest()->paginate(10);
-        return view('persyaratan.index', compact('persyaratans'));
+        $key = trim($req->q);
+        if($key){            
+            $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->paginate();
+        }else{            
+            $persyaratans = Persyaratan::latest()->paginate(10);
+        }        
+        $user = Auth::user();
+        return view('persyaratan.index', compact(['persyaratans', 'user']));
     }    
     public function create()
     {
-        return view('persyaratan.create');
+        $user = Auth::user();
+        return view('persyaratan.create', compact('user'));
     }
     public function store(Request $request)
     {
@@ -37,7 +45,8 @@ class PersyaratanController extends Controller
     }        
     public function edit(Persyaratan $persyaratan)
     {
-        return view('persyaratan.edit', compact('persyaratan'));
+        $user = Auth::user();
+        return view('persyaratan.edit', compact(['persyaratan', 'user']));
     }
     public function update(Request $request, Persyaratan $persyaratan)
     {

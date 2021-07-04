@@ -19,10 +19,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />  
   <!-- Toastr -->
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <!-- Date Picker -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
   <!-- Style Local -->
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">  
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -53,15 +55,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </li>
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
+      </li> -->
+      <li class="nav-item">      
+        <form id="logout-form" action="{{ route('logout') }}" onsubmit="return confirm('Apakah yakin ingin logout?')" method="POST" class="nav-link pt-1">
+            @csrf                               
+            <button type="submit" class="btn btn-danger btn-sm" role="button">
+              Sign out <i class="fas fa-sign-out-alt ml-2"></i>
+            </button>            
+        </form>
       </li>
     </ul>
   </nav>
@@ -76,16 +81,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -104,6 +99,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="https://adminlte.io/themes/v3/dist/js/adminlte.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- Date Picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script>
   @if(session()->has('success'))  
     toastr.success('{{session('success')}}', 'Berhasil!!');

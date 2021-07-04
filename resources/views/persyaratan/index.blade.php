@@ -23,19 +23,20 @@
             <div class="card-header">
             <a href="{{route('persyaratan.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
               <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                      <i class="fas fa-search"></i>
-                    </button>
+                <form action="{{route('persyaratan.index')}}" method="get">
+                  <div class="input-group input-group-sm" style="width: 150px;">                  
+                      <input type="text" name="q" class="form-control float-right" placeholder="Search">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>                  
                   </div>
-                </div>
+                </form>
               </div>
             </div>          
-            <div class="card-body table-responsive p-0" style="height: 300px;">                
-              <table class="table table-head-fixed text-nowrap">
+            <div class="card-body table-responsive p-0">
+              <table class="table text-nowrap">
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
@@ -70,14 +71,8 @@
                 </tbody>
               </table>
             </div>
-            <div class="card-footer clearfix">
-              <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">»</a></li>
-              </ul>
+            <div class="card-footer clearfix d-flex justify-content-end">
+              {!!$persyaratans->links()!!}
             </div>
             <!-- /.card-footer -->
             <!-- /.card-body -->

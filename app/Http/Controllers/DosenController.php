@@ -4,17 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DosenController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
-        $dosens = Dosen::latest()->get();
-        return view('dosen.index', compact('dosens'));
+        $key = trim($req->q);
+        if($key){
+            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->paginate();
+        }else{
+            $dosens = Dosen::latest()->paginate(10);
+        }
+        $user = Auth::user();    
+        return view('dosen.index', compact(['dosens','user']));
     }
     public function create()
     {
-        return view('dosen.create');
+        $user = Auth::user();
+        return view('dosen.create', compact('user'));
     }
     public function store(Request $req)
     {
@@ -33,7 +41,8 @@ class DosenController extends Controller
     }
     public function edit(Dosen $dosen)
     {        
-        return view('dosen.edit', compact('dosen'));
+        $user = Auth::user();
+        return view('dosen.edit', compact(['dosen','user']));
     }
     public function update(Request $req, Dosen $dosen)
     {

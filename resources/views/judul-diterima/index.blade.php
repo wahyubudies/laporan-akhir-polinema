@@ -7,7 +7,7 @@
         <div class="col-sm-12">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>            
-            <li class="breadcrumb-item active">Dosen</li>
+            <li class="breadcrumb-item active">Judul Diterima</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -21,12 +21,11 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
-            <a href="{{route('dosen.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
+            <a href="{{route('refrensi-tema.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
               <div class="card-tools">
-                <form action="{{route('dosen.index')}}" method="get">
+                <form action="{{route('refrensi-tema.index')}}" method="get">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
-
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
                         <i class="fas fa-search"></i>
@@ -34,6 +33,19 @@
                     </div>
                   </div>
                 </form>
+                <!-- <form action="{{route('refrensi-tema.search')}}" method="get" class="float-right">
+                  <div class="row">
+                    <div class="col-5">
+                      <input type="date" name="from" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-5">
+                      <input type="date" name="to" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-2">
+                      <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+                    </div>
+                  </div>
+                </form> -->
               </div>
             </div>          
             <div class="card-body table-responsive p-0" >
@@ -41,8 +53,8 @@
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th>Informasi TA</th>                      
-                    <th class="text-center">Action</th>
+                    <th>Nama Dosen</th>                      
+                    <th>Daftar Refrensi Tema</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -50,19 +62,30 @@
                   <tr>
                     <td class="text-center">{{$loop->iteration}}</td>
                     <td>{{$dosen->nama_dosen}}</td>
-                    <td class="text-center">
-                      <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('dosen.destroy', $dosen->id)}}" method="post">                          
-                        <a href="{{route('dosen.edit', $dosen->id)}}" class="btn btn-sm btn-primary">Edit</a>                        
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                      </form>
+                    <td>                      
+                        @forelse($dosen->refrensi_temas as $rt)
+                        <ul>
+                          <li>
+                            {{$rt->tema}} <br>
+                            <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('refrensi-tema.destroy', $rt->id)}}" method="post">                        
+                              <a href="{{route('refrensi-tema.edit', $rt->id)}}" class="badge badge-primary">edit</a>  
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="badge badge-danger border-0">Hapus</button>
+                            </form>                            
+                          </li>
+                        </ul>
+                        @empty                          
+                          <div class="badge badge-warning">
+                            Tidak ada refrensi tema
+                          </div>                          
+                        @endforelse                      
                     </td>
                   </tr>
                   <tr>
                   @empty
                   <div class="alert alert-danger">
-                      Data dosen belum Tersedia.
+                      Data pengumuman belum Tersedia.
                   </div>
                   @endforelse
                 </tbody>
@@ -80,5 +103,5 @@
       <!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
-  <!-- /.content -->
+  <!-- /.content -->  
 @endsection('content')

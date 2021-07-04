@@ -4,18 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
-        $pengumumans = Pengumuman::latest()->get();
-        return view('pengumuman.index', compact('pengumumans'));
+        $key = trim($req->q);
+        if($key){            
+            $pengumumans = Pengumuman::where('content','LIKE',"%$key%")->paginate();
+        }else{            
+            $pengumumans = Pengumuman::latest()->paginate(10);
+        }        
+        $user = Auth::user();
+        return view('pengumuman.index', compact(['pengumumans','user']));
     }
     public function create()
     {
-        return view('pengumuman.create');
+        $user = Auth::user();
+        return view('pengumuman.create',compact('user'));
     }
     public function store(Request $req)
     {
@@ -38,7 +46,8 @@ class PengumumanController extends Controller
     }
     public function edit(Pengumuman $pengumuman)
     {                
-        return view('pengumuman.edit', compact('pengumuman'));
+        $user = Auth::user();
+        return view('pengumuman.edit', compact(['pengumuman','user']));
     }
     public function update(Request $req, Pengumuman $pengumuman)
     {

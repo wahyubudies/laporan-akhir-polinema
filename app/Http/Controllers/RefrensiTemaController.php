@@ -4,20 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\RefrensiTema;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RefrensiTemaController extends Controller
-{
-    public function index()
+{    
+    public function index(Request $req)
+    {                
+        $key = trim($req->q);
+        if($key){            
+            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->paginate();
+            //$dosens = RefrensiTema::where('tema', 'LIKE', "%$key%")->get();
+            // $dosens = Dosen::join('refrensi_temas', 'dosens.id', '=', 'refrensi_temas.dosen_id')
+            //                 ->where('refrensi_temas.tema', 'LIKE', "%$key%")
+            //                 ->paginate();
+            //return $dosens;
+        }else{
+            $dosens = Dosen::latest()->paginate(10);
+        }
+        $user = Auth::user();        
+        return view('refrensi-tema.index', compact(['dosens','user']));           
+    }
+    public function search(Request $req)
     {
-        // $refrensiTema = RefrensiTema::join('dosens','dosen_id','=','dosens.id')->get(['refrensi_temas.tema','dosens.nama_dosen']);
-        $dosens = Dosen::latest()->get();
-        return view('refrensi-tema.index', compact('dosens'));        
+        $from = Carbon::parse($req->from)
+        ->startOfDay()
+        ->toDateTimeString();
+        $to = Carbon::parse($req->to)        
+        ->endOfDay()
+        ->toDateTimeString();
+        $data = RefrensiTema::whereBetween('created_at', [$from,$to])->get();        
+        return $data;
     }
     public function create()
     {
+        $user = Auth::user();
         $dosens = Dosen::get(['id','nama_dosen']);
-        return view('refrensi-tema.create', compact('dosens'));
+        return view('refrensi-tema.create', compact(['dosens','user']));
     }
     public function store(Request $req)
     {
@@ -39,7 +63,8 @@ class RefrensiTemaController extends Controller
     }
     public function edit(RefrensiTema  $refrensiTema)
     {        
-        return view('refrensi-tema.edit', compact('refrensiTema'));
+        $user = Auth::user();
+        return view('refrensi-tema.edit', compact(['refrensiTema','user']));
     }
     public function update(Request $req, RefrensiTema $refrensiTema)
     {
