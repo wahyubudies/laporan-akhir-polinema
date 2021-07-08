@@ -60,6 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li> -->
+      @if(Auth::check())
       <li class="nav-item">      
         <form id="logout-form" action="{{ route('logout') }}" onsubmit="return confirm('Apakah yakin ingin logout?')" method="POST" class="nav-link pt-1">
             @csrf                               
@@ -68,12 +69,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </button>            
         </form>
       </li>
+      @endif
     </ul>
   </nav>
-  <!-- /.navbar -->
-
+  <!-- /.navbar -->  
   @include('layouts.sidebar')
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Main content -->

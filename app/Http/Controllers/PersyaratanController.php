@@ -20,6 +20,17 @@ class PersyaratanController extends Controller
         $user = Auth::user();
         return view('persyaratan.index', compact(['persyaratans', 'user']));
     }    
+    public function guest(Request $req)
+    {
+        $key = trim($req->q);
+        if($key){            
+            $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->paginate();
+        }else{            
+            $persyaratans = Persyaratan::latest()->paginate(10);
+        }        
+        $user = Auth::user();
+        return view('persyaratan.index', compact(['persyaratans', 'user']));
+    }  
     public function create()
     {
         $user = Auth::user();

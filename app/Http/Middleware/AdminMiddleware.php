@@ -20,6 +20,6 @@ class AdminMiddleware
         if(Auth::user()->role == 'admin'){          
             return $next($request);
         }
-        redirect()->to('logout');
+        abort(404);
     }
 }

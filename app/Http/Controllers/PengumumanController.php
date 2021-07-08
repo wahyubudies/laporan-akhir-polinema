@@ -20,6 +20,17 @@ class PengumumanController extends Controller
         $user = Auth::user();
         return view('pengumuman.index', compact(['pengumumans','user']));
     }
+    public function guest(Request $req)
+    {
+        $key = trim($req->q);
+        if($key){            
+            $pengumumans = Pengumuman::where('content','LIKE',"%$key%")->paginate();
+        }else{            
+            $pengumumans = Pengumuman::latest()->paginate(10);
+        }        
+        $user = Auth::user();
+        return view('pengumuman.index', compact(['pengumumans','user']));
+    }
     public function create()
     {
         $user = Auth::user();

@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\FormUploadController;
+use App\Http\Controllers\JudulDiterimaController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PersyaratanController;
 use App\Http\Controllers\RefrensiTemaController;
+use App\Http\Controllers\RekapJudulController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -18,16 +21,30 @@ use Illuminate\Support\Facades\Route;
 */
 //Routing Auth
 Route::get('/', function(){    
-  return redirect()->route('login');
+  return redirect()->route('persyaratan.guest');
 });
+//Route Form
+Route::get('form', [FormUploadController::class, 'create'])->name('form.create');
+Route::post('form', [FormUploadController::class, 'store'])->name('form.store');
+
+//Route Guest Persyaratan
+Route::get('persyaratan/guest', [PersyaratanController::class, 'guest'])->name('persyaratan.guest');
+//Route Guest Pengumuman
+Route::get('pengumuman/{id}/download', [PengumumanController::class, 'download'])->name('pengumuman.download');
+Route::get('pengumuman/guest', [PengumumanController::class, 'guest'])->name('pengumuman.guest');
+//Route Guest Dosen
+Route::get('dosen/guest', [DosenController::class, 'guest'])->name('dosen.guest');
+//Route Guest Refrensi Tema
+Route::get('refrensi-tema/guest', [RefrensiTemaController::class, 'guest'])->name('refrensi-tema.guest');
+//Route Guest Judul Diterima
+Route::get('judul-diterima/guest', [JudulDiterimaController::class, 'guest'])->name('judul-diterima.guest');
+//Route Guest Rekap Judul
+Route::get('rekap-judul/guest', [RekapJudulController::class, 'guest'])->name('rekap-judul.guest');
+Route::get('rekap-judul/{id}', [RekapJudulController::class, 'detail'])->name('rekap-judul.detail');
 
 Auth::routes();
-Route::middleware(['auth'])->group(function(){
-  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-  Route::middleware(['admin'])->group(function(){
-    // Routing pengumuman
-    Route::get('pengumuman/{id}/download', [PengumumanController::class, 'download'])->name('pengumuman.download');
+Route::middleware(['auth'])->group(function(){  
+    // Routing pengumuman    
     Route::resource('pengumuman', PengumumanController::class);
 
     // Routing persyaratan
@@ -38,14 +55,11 @@ Route::middleware(['auth'])->group(function(){
 
     //Routing Refrensi Tema
     Route::get('refrensi-tema/search', [RefrensiTemaController::class, 'search'])->name('refrensi-tema.search');
-    Route::resource('refrensi-tema', RefrensiTemaController::class);  
-  });
+    Route::resource('refrensi-tema', RefrensiTemaController::class);      
 
-  Route::middleware(['dosen'])->group(function(){
-    
-  });
-  Route::get('logout', function(){
-    Auth::logout();
-    return redirect()->route('login');
-  });
+    // Routing Judul Diterima
+    Route::resource('judul-diterima', JudulDiterimaController::class);
+
+    //Routing Rekap Judul
+    Route::resource('rekap-judul', RekapJudulController::class);
 });

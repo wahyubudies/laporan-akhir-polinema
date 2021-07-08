@@ -21,9 +21,15 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
+            @if(Auth::check())
             <a href="{{route('pengumuman.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
+            @endif
               <div class="card-tools">
+              @if(Auth::check())
                 <form action="{{route('pengumuman.index')}}" method="get">
+              @else
+              <form action="{{route('pengumuman.guest')}}" method="get">
+              @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
 
@@ -50,13 +56,17 @@
                   <tr>
                     <td class="text-center">{{$loop->iteration}}</td>
                     <td>{{$pengumuman->content}}</td>
-                    <td class="text-center">
+                    <td class="text-center">                      
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('pengumuman.destroy', $pengumuman->id)}}" method="post">                          
+                        @if(Auth::check())
                         <a href="{{route('pengumuman.edit', $pengumuman->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                        @endif
                         <a onclick="return confirm('Yakin ingin mengunduh file ?');" href="{{route('pengumuman.download', $pengumuman->id)}}" target="__blank" class="btn btn-sm btn-secondary">Download</a>
+                        @if(Auth::check())
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                        @endif
                       </form>
                     </td>
                   </tr>

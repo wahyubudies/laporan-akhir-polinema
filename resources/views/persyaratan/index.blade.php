@@ -21,9 +21,15 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
+            @if(Auth::check())
             <a href="{{route('persyaratan.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
+            @endif
               <div class="card-tools">
+                @if(Auth::check())
                 <form action="{{route('persyaratan.index')}}" method="get">
+                @else
+                <form action="{{route('persyaratan.guest')}}" method="get">
+                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">                  
                       <input type="text" name="q" class="form-control float-right" placeholder="Search">
                       <div class="input-group-append">
@@ -42,7 +48,9 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Image</th>
                     <th>Content</th>
+                    @if(Auth::check())
                     <th class="text-center">Action</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -53,6 +61,7 @@
                       <img src="{{Storage::url('public/persyaratans/').$persyaratan->image}}" alt="" width="100px">
                     </td>
                     <td>{{$persyaratan->content}}</td>
+                    @if(Auth::check())
                     <td class="text-center">
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('persyaratan.destroy', $persyaratan->id)}}" method="post">
                         <a href="{{route('persyaratan.edit', $persyaratan->id)}}" class="btn btn-sm btn-primary">Edit</a>
@@ -61,6 +70,7 @@
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                       </form>
                     </td>
+                    @endif
                   </tr>
                   <tr>
                   @empty

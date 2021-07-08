@@ -21,9 +21,15 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
+            @if(Auth::check())
             <a href="{{route('dosen.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
+            @endif
               <div class="card-tools">
+                @if(Auth::check())
                 <form action="{{route('dosen.index')}}" method="get">
+                @else
+                <form action="{{route('dosen.guest')}}" method="get">
+                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
 
@@ -41,8 +47,10 @@
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th>Informasi TA</th>                      
+                    <th>Informasi TA</th>     
+                    @if(Auth::check())                 
                     <th class="text-center">Action</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -50,6 +58,7 @@
                   <tr>
                     <td class="text-center">{{$loop->iteration}}</td>
                     <td>{{$dosen->nama_dosen}}</td>
+                    @if(Auth::check())
                     <td class="text-center">
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('dosen.destroy', $dosen->id)}}" method="post">                          
                         <a href="{{route('dosen.edit', $dosen->id)}}" class="btn btn-sm btn-primary">Edit</a>                        
@@ -58,6 +67,7 @@
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                       </form>
                     </td>
+                    @endif
                   </tr>
                   <tr>
                   @empty

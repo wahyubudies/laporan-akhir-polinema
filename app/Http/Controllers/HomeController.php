@@ -12,11 +12,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -24,14 +19,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $role = Auth::user()->role;
-        if($role == "admin"){
-            return redirect()->route('refrensi-tema.index');
-        } else if($role == "dosen"){
-            return redirect()->route('refrensi-tema.index');
-        } else {
-            return redirect()->to('logout');
-        }
-        return redirect()->to('login');
+        
     }
 }

@@ -20,6 +20,6 @@ class DosenMiddleware
         if(Auth::user()->role == 'dosen'){
             return $next($request);
         }
-        redirect()->to('logout');        
+        abort(404);
     }
 }

@@ -19,6 +19,17 @@ class DosenController extends Controller
         $user = Auth::user();    
         return view('dosen.index', compact(['dosens','user']));
     }
+    public function guest(Request $req)
+    {
+        $key = trim($req->q);
+        if($key){
+            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->paginate();
+        }else{
+            $dosens = Dosen::latest()->paginate(10);
+        }
+        $user = Auth::user();    
+        return view('dosen.index', compact(['dosens','user']));
+    }
     public function create()
     {
         $user = Auth::user();

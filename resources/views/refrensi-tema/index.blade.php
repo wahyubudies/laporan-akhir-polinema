@@ -21,9 +21,15 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
+            @if(Auth::check())
             <a href="{{route('refrensi-tema.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
+            @endif
               <div class="card-tools">
+                @if(Auth::check())
                 <form action="{{route('refrensi-tema.index')}}" method="get">
+                @else
+                <form action="{{route('refrensi-tema.guest')}}" method="get">
+                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
                     <div class="input-group-append">
@@ -67,12 +73,14 @@
                         <ul>
                           <li>
                             {{$rt->tema}} <br>
+                            @if(Auth::check())
                             <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('refrensi-tema.destroy', $rt->id)}}" method="post">                        
                               <a href="{{route('refrensi-tema.edit', $rt->id)}}" class="badge badge-primary">edit</a>  
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="badge badge-danger border-0">Hapus</button>
                             </form>                            
+                            @endif
                           </li>
                         </ul>
                         @empty                          
