@@ -21,11 +21,11 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
-            @if(Auth::check())
+            @if(Auth::user()->role === 'admin')
             <a href="{{route('pengumuman.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
             @endif
               <div class="card-tools">
-              @if(Auth::check())
+              @if(Auth::user()->role === 'admin')
                 <form action="{{route('pengumuman.index')}}" method="get">
               @else
               <form action="{{route('pengumuman.guest')}}" method="get">
@@ -58,11 +58,11 @@
                     <td>{{$pengumuman->content}}</td>
                     <td class="text-center">                      
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('pengumuman.destroy', $pengumuman->id)}}" method="post">                          
-                        @if(Auth::check())
+                        @if(Auth::user()->role === 'admin')
                         <a href="{{route('pengumuman.edit', $pengumuman->id)}}" class="btn btn-sm btn-primary">Edit</a>
                         @endif
                         <a onclick="return confirm('Yakin ingin mengunduh file ?');" href="{{route('pengumuman.download', $pengumuman->id)}}" target="__blank" class="btn btn-sm btn-secondary">Download</a>
-                        @if(Auth::check())
+                        @if(Auth::user()->role === 'admin')
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

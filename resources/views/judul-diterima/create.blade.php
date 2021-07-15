@@ -37,7 +37,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Nama</label>
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{old('nama')}}" id="" placeholder="dosen*">
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{old('nama')}}" id="" placeholder="nama*">
                     @error('nama')
                       <div class="alert alert-danger mt-2">
                         {{$message}}
@@ -46,7 +46,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Kelas</label>
-                    <input type="text" class="form-control @error('kelas') is-invalid @enderror" name="kelas" value="{{old('kelas')}}" id="" placeholder="dosen*">
+                    <input type="text" class="form-control @error('kelas') is-invalid @enderror" name="kelas" value="{{old('kelas')}}" id="" placeholder="kelas*">
                     @error('kelas')
                       <div class="alert alert-danger mt-2">
                         {{$message}}
@@ -55,7 +55,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Judul</label>
-                    <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" value="{{old('judul')}}" id="" placeholder="dosen*">
+                    <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" value="{{old('judul')}}" id="" placeholder="judul*">
                     @error('judul')
                       <div class="alert alert-danger mt-2">
                         {{$message}}

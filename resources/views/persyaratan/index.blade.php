@@ -21,11 +21,11 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
-            @if(Auth::check())
+            @if(Auth::user()->role === 'admin')
             <a href="{{route('persyaratan.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
             @endif
               <div class="card-tools">
-                @if(Auth::check())
+                @if(Auth::user()->role === 'admin')
                 <form action="{{route('persyaratan.index')}}" method="get">
                 @else
                 <form action="{{route('persyaratan.guest')}}" method="get">
@@ -48,7 +48,7 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Image</th>
                     <th>Content</th>
-                    @if(Auth::check())
+                    @if(Auth::user()->role === 'admin')
                     <th class="text-center">Action</th>
                     @endif
                   </tr>
@@ -61,7 +61,7 @@
                       <img src="{{Storage::url('public/persyaratans/').$persyaratan->image}}" alt="" width="100px">
                     </td>
                     <td>{{$persyaratan->content}}</td>
-                    @if(Auth::check())
+                    @if(Auth::user()->role === 'admin')
                     <td class="text-center">
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('persyaratan.destroy', $persyaratan->id)}}" method="post">
                         <a href="{{route('persyaratan.edit', $persyaratan->id)}}" class="btn btn-sm btn-primary">Edit</a>

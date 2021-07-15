@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DosenMiddleware
+class MahasiswaMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class DosenMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role == 'dosen'){
+        if(Auth::check() && Auth::user()->role == 'mahasiswa'){
             return $next($request);
         }
         abort(404);

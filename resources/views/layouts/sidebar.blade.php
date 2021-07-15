@@ -6,24 +6,24 @@
   <!-- Sidebar user panel (optional) -->
   <div class="user-panel mt-3 pb-3 mb-3 d-flex">
     <div class="info">
-      <a class="d-block">Hello, Admin!</a>
+      <a class="d-block"> <b>Sistem Informasi</b> <br> Laporan Akhir <br> Prodi Teknik Telekomunikasi</a>
     </div>
   </div>
 
   <!-- Sidebar Menu -->
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-      @if(Auth::check())
+      @if(Auth::user()->role === 'admin')
       <li class="nav-item">
-        <a href="{{route('persyaratan.index')}}" class="nav-link {{ (request()->is('persyaratan*') ? 'active' : '') }}">
+        <a href="{{route('persyaratan.index')}}" class="nav-link {{ (request()->is('admin/persyaratan*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
-            Persyaratan
+            Persyaratan            
           </p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('pengumuman.index')}}" class="nav-link {{ (request()->is('pengumuman*') ? 'active' : '') }}">
+        <a href="{{route('pengumuman.index')}}" class="nav-link {{ (request()->is('admin/pengumuman*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Pengumuman
@@ -31,14 +31,14 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('dosen.index')}}" class="nav-link {{ (request()->is('dosen*') ? 'active' : '') }}">
+        <a href="{{route('dosen.index')}}" class="nav-link {{ (request()->is('admin/dosen*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Dosen Penyeleksi
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('rekap-judul*') ? 'menu-open' : '') }}">
+      <li class="nav-item {{ (request()->is('admin/refrensi-tema*') | request()->is('admin/judul-diterima*') | request()->is('admin/form-pendaftaran*') ? 'menu-open' : '') }}">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
@@ -48,28 +48,22 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{route('refrensi-tema.index')}}" class="nav-link {{ (request()->is('refrensi-tema*') ? 'active' : '') }}">
+            <a href="{{route('refrensi-tema.index')}}" class="nav-link {{ (request()->is('admin/refrensi-tema*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Refrensi Tema Dosen</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('rekap-judul.index')}}" class="nav-link {{ (request()->is('rekap-judul*') ? 'active' : '') }}">
+            <a href="{{route('form-pendaftaran.index')}}" class="nav-link {{ (request()->is('admin/form-pendaftaran') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
-              <p>Rekap Judul TA</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('judul-diterima.index')}}" class="nav-link {{ (request()->is('judul-diterima*') ? 'active' : '') }}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Judul Diterima</p>
+              <p>Rekap Judul Proposal TA</p>
             </a>
           </li>
         </ul>
       </li>            
-      @else
+      @elseif(Auth::user()->role === 'mahasiswa')
       <li class="nav-item">
-        <a href="{{route('persyaratan.guest')}}" class="nav-link {{ (request()->is('persyaratan*') ? 'active' : '') }}">
+        <a href="{{route('persyaratan.guest')}}" class="nav-link {{ (request()->is('mahasiswa/persyaratan*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Persyaratan
@@ -77,7 +71,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('pengumuman.guest')}}" class="nav-link {{ (request()->is('pengumuman*') ? 'active' : '') }}">
+        <a href="{{route('pengumuman.guest')}}" class="nav-link {{ (request()->is('mahasiswa/pengumuman*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Pengumuman
@@ -85,15 +79,15 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('dosen.guest')}}" class="nav-link {{ (request()->is('dosen*') ? 'active' : '') }}">
+        <a href="{{route('dosen.guest')}}" class="nav-link {{ (request()->is('mahasiswa/dosen*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Dosen Penyeleksi
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('rekap-judul*') ? 'menu-open' : '') }}">
-        <a href="#" class="nav-link">
+      <li class="nav-item {{ (request()->is('mahasiswa/refrensi-tema*') | request()->is('mahasiswa/judul-diterima*') | request()->is('mahasiswa/form-pendaftaran*') ? 'menu-open' : '') }}">
+        <a class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Usulan Judul
@@ -102,21 +96,21 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{route('refrensi-tema.guest')}}" class="nav-link {{ (request()->is('refrensi-tema*') ? 'active' : '') }}">
+            <a href="{{ route('refrensi-tema.guest') }}" class="nav-link {{ (request()->is('mahasiswa/refrensi-tema*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Refrensi Tema Dosen</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('rekap-judul.guest')}}" class="nav-link {{ (request()->is('rekap-judul*') ? 'active' : '') }}">
+            <a href="{{route('form-pendaftaran.create')}}" class="nav-link {{ (request()->is('mahasiswa/form-pendaftaran/create') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
-              <p>Rekap Judul TA</p>
+              <p>Form Pendaftaran Proposal TA</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('judul-diterima.guest')}}" class="nav-link {{ (request()->is('judul-diterima*') ? 'active' : '') }}">
+            <a href="{{route('form-pendaftaran.guest')}}" class="nav-link {{ (request()->is('mahasiswa/form-pendaftaran') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
-              <p>Judul Diterima</p>
+              <p>Rekap Judul Proposal TA</p>
             </a>
           </li>
         </ul>

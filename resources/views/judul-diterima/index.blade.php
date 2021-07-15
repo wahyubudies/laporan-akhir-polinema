@@ -21,11 +21,11 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
-              @if(Auth::check())
+              @if(Auth::user()->role === 'admin')
               <a href="{{route('judul-diterima.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
               @endif
               <div class="card-tools">
-                @if(Auth::check())
+                @if(Auth::user()->role === 'admin')
                 <form action="{{route('judul-diterima.index')}}" method="get">
                 @else
                 <form action="{{route('judul-diterima.guest')}}" method="get">
@@ -50,7 +50,7 @@
                     <th>Nama</th>
                     <th>Kelas</th>
                     <th>Judul</th>
-                    @if(Auth::check())
+                    @if(Auth::user()->role === 'admin')
                     <th>Action</th>                    
                     @endif
                   </tr>
@@ -63,7 +63,7 @@
                     <td>{{$judul->nama}}</td>
                     <td>{{$judul->kelas}}</td>
                     <td>{{$judul->judul}}</td>
-                    @if(Auth::check())
+                    @if(Auth::user()->role === 'admin')
                     <td>                      
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('judul-diterima.destroy', $judul->id)}}" method="post">                          
                         <a href="{{route('judul-diterima.edit', $judul->id)}}" class="btn btn-sm btn-primary">Edit</a>                        

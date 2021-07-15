@@ -54,13 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </form>
         </div>
       </li>
-
-      <!-- <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li> -->
-      @if(Auth::check())
+    
       <li class="nav-item">      
         <form id="logout-form" action="{{ route('logout') }}" onsubmit="return confirm('Apakah yakin ingin logout?')" method="POST" class="nav-link pt-1">
             @csrf                               
@@ -68,8 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               Sign out <i class="fas fa-sign-out-alt ml-2"></i>
             </button>            
         </form>
-      </li>
-      @endif
+      </li>      
     </ul>
   </nav>
   <!-- /.navbar -->  

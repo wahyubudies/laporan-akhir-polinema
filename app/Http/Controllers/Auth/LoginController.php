@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,8 +27,23 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'persyaratan';
-
+    protected $redirectTo;
+    public function redirectTo()
+    {
+        switch (Auth::user()->role) {
+            case 'admin':
+                $this->redirectTo = 'admin/persyaratan';
+                return $this->redirectTo;
+                break;
+            case 'mahasiswa':
+                $this->redirectTo = 'mahasiswa/persyaratan';
+                return $this->redirectTo;
+                break;  
+            default:
+                $this->redirectTo = '/login';
+                return $this->redirectTo;                
+        }
+    }
     /**
      * Create a new controller instance.
      *
@@ -35,7 +51,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        //$this->middleware('guest')->except('logout');
     }
     public function showLoginForm()
     {        
