@@ -20,7 +20,8 @@
       <div class="row">
         <div class="col-12">
           <div class="card">            
-            <div class="card-header">              
+            <div class="card-header">  
+              <a href="{{route('form-pendaftaran.export')}}" class="btn btn-sm btn-secondary">Export Data</a>            
               <div class="card-tools">
                 @if(Auth::user()->role === 'admin')
                 <form action="{{route('form-pendaftaran.index')}}" method="get">

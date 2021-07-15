@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FormPendaftaransExport;
 use App\Models\FormPendaftaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FormPendaftaranController extends Controller
 {
@@ -153,5 +155,9 @@ class FormPendaftaranController extends Controller
         else{
             return redirect()->route('form-pendaftaran.index')->with(['success' => 'Data berhasil disunting!!']);
         }
+    }
+    public function fileExport() 
+    {
+        return Excel::download(new FormPendaftaransExport, 'form-pendaftaran.xlsx');
     }
 }

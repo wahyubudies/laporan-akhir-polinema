@@ -30,6 +30,8 @@ Auth::routes();
 Route::middleware('auth')->group(function(){
   //Route Guest Pengumuman
   Route::get('pengumuman/{id}/download', [PengumumanController::class, 'download'])->name('pengumuman.download');  
+  //Route Export Excel
+  Route::get('form-pendaftaran/export', [FormPendaftaranController::class, 'fileExport'])->name('form-pendaftaran.export');
 });
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
   // Routing pengumuman    
