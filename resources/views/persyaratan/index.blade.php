@@ -56,7 +56,7 @@
                 <tbody>
                   @forelse($persyaratans as $persyaratan)
                   <tr>
-                    <td class="text-center">{{$loop->iteration}}</td>
+                    <td class="text-center">{{$persyaratans->firstItem() + $loop->index}}</td>
                     <td class="text-center">
                       <img src="{{Storage::url('public/persyaratans/').$persyaratan->image}}" alt="" width="100px">
                     </td>

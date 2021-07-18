@@ -39,19 +39,6 @@
                     </div>
                   </div>
                 </form>
-                <!-- <form action="{{route('refrensi-tema.search')}}" method="get" class="float-right">
-                  <div class="row">
-                    <div class="col-5">
-                      <input type="date" name="from" class="form-control form-control-sm">
-                    </div>
-                    <div class="col-5">
-                      <input type="date" name="to" class="form-control form-control-sm">
-                    </div>
-                    <div class="col-2">
-                      <button type="submit" class="btn btn-primary btn-sm">Cari</button>
-                    </div>
-                  </div>
-                </form> -->
               </div>
             </div>          
             <div class="card-body table-responsive p-0" >
@@ -66,7 +53,7 @@
                 <tbody>
                   @forelse($dosens as $dosen)
                   <tr>
-                    <td class="text-center">{{$loop->iteration}}</td>
+                    <td class="text-center">{{$dosens->firstItem() + $loop->index}}</td>
                     <td>{{$dosen->nama_dosen}}</td>
                     <td>                      
                         @forelse($dosen->refrensi_temas as $rt)

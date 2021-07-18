@@ -98,7 +98,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @if(session()->has('success'))  
     toastr.success('{{session('success')}}', 'Berhasil!!');
   @elseif(session()->has('error'))
-    toastr.success('{{session('error')}}', 'Gagal!!');
+    toastr.error('{{session('error')}}', 'Gagal!!');
+  @elseif(session()->has('warning'))
+    toastr.warning('{{session('warning')}}', 'Warning!!');
   @endif
 </script>
 </body>

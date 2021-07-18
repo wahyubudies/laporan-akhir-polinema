@@ -75,15 +75,20 @@ class DosenController extends Controller
     }
     public function destroy($id)
     {
-        $dosen = Dosen::findOrFail($id);        
-        $dosen->delete();
-        if(!$dosen)
-        {
-            return redirect()->route('dosen.index')->with(['danger'=>'Data gagal dihapus!!']);            
-        }
-        else
-        {
+        $dosen = Dosen::findOrFail($id);
+        try {
+            $dosen->delete();
             return redirect()->route('dosen.index')->with(['success'=>'Data berhasil dihapus!!']);
-        }
+        }catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with(['warning'=>'Data sedang dipakai!!']); 
+        }              
+        // if(!$deleteDosen)
+        // {
+        //     return redirect()->route('dosen.index')->with(['danger'=>'Data gagal dihapus!!']);            
+        // }
+        // else
+        // {
+        //     return redirect()->route('dosen.index')->with(['success'=>'Data berhasil dihapus!!']);
+        // }
     }
 }

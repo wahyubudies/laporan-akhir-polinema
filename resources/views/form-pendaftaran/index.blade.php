@@ -54,7 +54,7 @@
                 <tbody>
                   @forelse($forms as $form)
                   <tr>
-                    <td class="text-center">{{$loop->iteration}}</td>
+                    <td class="text-center">{{$forms->firstItem() + $loop->index}}</td>
                     <td>{{$form->nim_mhs_1}}</td>
                     <td>{{$form->nama_mhs_1}}</td>
                     <td>{{$form->judul}}</td>

@@ -56,7 +56,7 @@
                 <tbody>
                   @forelse($dosens as $dosen)
                   <tr>
-                    <td class="text-center">{{$loop->iteration}}</td>
+                    <td class="text-center">{{$dosens->firstItem() + $loop->index}}</td>
                     <td>{{$dosen->nama_dosen}}</td>
                     @if(Auth::user()->role === 'admin')
                     <td class="text-center">

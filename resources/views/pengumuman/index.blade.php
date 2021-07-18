@@ -54,7 +54,7 @@
                 <tbody>
                   @forelse($pengumumans as $pengumuman)
                   <tr>
-                    <td class="text-center">{{$loop->iteration}}</td>
+                    <td class="text-center">{{$pengumumans->firstItem() + $loop->index}}</td>
                     <td>{{$pengumuman->content}}</td>
                     <td class="text-center">                      
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('pengumuman.destroy', $pengumuman->id)}}" method="post">                          
