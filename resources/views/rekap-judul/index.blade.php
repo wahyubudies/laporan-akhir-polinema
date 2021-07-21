@@ -20,7 +20,7 @@
       <div class="row">
         <div class="col-12">
           <div class="card">         
-            @if(Auth::check())
+            @if(Auth::user()->role !== 'mahasiswa')
             <div class="card-header">              
               <a href="{{route('rekap-judul.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>              
             </div>          
@@ -31,7 +31,7 @@
                   <tr>
                     <th class="text-center">No</th>
                     <th>Rekap Judul</th>
-                    @if(Auth::check())
+                    @if(Auth::user()->role !== 'mahasiswa')
                     <th class="text-center">Action</th>
                     @endif
                   </tr>
@@ -43,7 +43,7 @@
                     <td>
                       <a href="{{route('rekap-judul.detail', $rekap_judul->id)}}" class="btn-sm btn btn-primary">Tahun {{$rekap_judul->created_at->format('Y')}}</a>
                     </td>
-                    @if(Auth::check())
+                    @if(Auth::user()->role !== 'mahasiswa')
                     <td class="text-center">
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('rekap-judul.destroy', $rekap_judul->id)}}" method="post">                          
                         <a href="{{route('rekap-judul.edit', $rekap_judul->id)}}" class="btn btn-sm btn-primary">Edit</a>                        

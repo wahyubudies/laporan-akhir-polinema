@@ -39,7 +39,7 @@ class PersyaratanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required|image|mimes:png, jpg, jpeg',
+            'image' => 'required',
             'content' => 'required'
         ]);
         $image = $request->file('image');

@@ -21,11 +21,11 @@
         <div class="col-12">
           <div class="card">            
             <div class="card-header">
-            @if(Auth::user()->role === 'admin')
+            @if(Auth::user()->role !== 'mahasiswa')
             <a href="{{route('refrensi-tema.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
             @endif
               <div class="card-tools">
-                @if(Auth::user()->role === 'admin')
+                @if(Auth::user()->role !== 'mahasiswa')
                 <form action="{{route('refrensi-tema.index')}}" method="get">
                 @else
                 <form action="{{route('refrensi-tema.guest')}}" method="get">
@@ -60,7 +60,7 @@
                         <ul>
                           <li>
                             {{$rt->tema}} <br>
-                            @if(Auth::user()->role === 'admin')
+                            @if(Auth::user()->role !== 'mahasiswa')
                             <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('refrensi-tema.destroy', $rt->id)}}" method="post">                        
                               <a href="{{route('refrensi-tema.edit', $rt->id)}}" class="badge badge-primary">edit</a>  
                               @csrf

@@ -63,6 +63,7 @@
                     <select name="role" id="role-confirm" class="form-control @error('role') is-invalid @enderror">
                         <option value="admin">Admin</option>
                         <option value="mahasiswa">Mahasiswa</option>
+                        <option value="pembimbing">Pembimbing</option>
                     </select>
                     @error('role')
                         <span class="invalid-feedback" role="alert">
