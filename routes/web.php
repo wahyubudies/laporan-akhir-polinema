@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\FormPendaftaranController;
-use App\Http\Controllers\FormUploadController;
 use App\Http\Controllers\JudulDiterimaController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PenilaianLaporanController;
@@ -12,23 +12,11 @@ use App\Http\Controllers\RekapJudulController;
 use App\Http\Controllers\RekapLaporanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-//Routing Auth
-Route::get('/', function(){    
-  return view('auth.login');
-});
 
+Route::get('/', [LoginController::class, 'showLoginForm']);
 
 Auth::routes();
+
 Route::middleware('auth')->group(function(){
   //Route Guest Pengumuman
   Route::get('pengumuman/{id}/download', [PengumumanController::class, 'download'])->name('pengumuman.download');  
@@ -39,6 +27,7 @@ Route::middleware('auth')->group(function(){
   //Route Export Penilaian Laporan
   Route::get('penilaian-laporan/excel', [PenilaianLaporanController::class, 'exportExcel'])->name('penilaian-laporan.export');
 });
+
 Route::middleware(['admin','pembimbing'])->group(function(){
     // Routing pengumuman    
     Route::resource('admin/pengumuman', PengumumanController::class);

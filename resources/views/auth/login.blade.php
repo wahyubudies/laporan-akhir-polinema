@@ -19,7 +19,7 @@
     <!-- /.login-logo -->
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Login</h3>
+            <h3 class="card-title">FORM LOGIN</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -37,17 +37,22 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input id="password" placeholder="********" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <small class="text-muted">
+                    Belum punya akun ? <a href="{{ route('register') }}">Register</a> disini.
+                </small>
             </div>
         </form>
     </div>

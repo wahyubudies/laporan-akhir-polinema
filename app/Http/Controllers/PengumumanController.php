@@ -13,9 +13,9 @@ class PengumumanController extends Controller
     {
         $key = trim($req->q);
         if($key){            
-            $pengumumans = Pengumuman::where('content','LIKE',"%$key%")->paginate();
+            $pengumumans = Pengumuman::where('content','LIKE',"%$key%")->orderBy('content', 'ASC')->paginate();
         }else{            
-            $pengumumans = Pengumuman::latest()->paginate(10);
+            $pengumumans = Pengumuman::orderBy('content', 'ASC')->paginate(10);
         }        
         $user = Auth::user();
         return view('pengumuman.index', compact(['pengumumans','user']));
@@ -24,9 +24,9 @@ class PengumumanController extends Controller
     {
         $key = trim($req->q);
         if($key){            
-            $pengumumans = Pengumuman::where('content','LIKE',"%$key%")->paginate();
+            $pengumumans = Pengumuman::where('content','LIKE',"%$key%")->orderBy('content', 'ASC')->paginate();
         }else{            
-            $pengumumans = Pengumuman::latest()->paginate(10);
+            $pengumumans = Pengumuman::orderBy('content', 'ASC')->paginate(10);
         }        
         $user = Auth::user();
         return view('pengumuman.index', compact(['pengumumans','user']));

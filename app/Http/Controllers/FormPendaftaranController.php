@@ -24,9 +24,10 @@ class FormPendaftaranController extends Controller
                                 ->orWhere('dosen_penyeleksi_1','LIKE',"%$key%")
                                 ->orWhere('dosen_penyeleksi_2','LIKE',"%$key%")
                                 ->orWhere('dosen_penyeleksi_3','LIKE',"%$key%")
+                                ->orderBy('nim_mhs_1', 'ASC')
                                 ->paginate();
         else
-            $forms = FormPendaftaran::latest()->paginate();        
+            $forms = FormPendaftaran::orderBy('nim_mhs_1', 'ASC')->paginate(10);
         return view('form-pendaftaran.index', ['forms'=>$forms]);
     }
     public function guest(Request $req)
@@ -42,9 +43,10 @@ class FormPendaftaranController extends Controller
                                 ->orWhere('dosen_penyeleksi_1','LIKE',"%$key%")
                                 ->orWhere('dosen_penyeleksi_2','LIKE',"%$key%")
                                 ->orWhere('dosen_penyeleksi_3','LIKE',"%$key%")
+                                ->orderBy('nim_mhs_1', 'ASC')
                                 ->paginate();
         else
-            $forms = FormPendaftaran::latest()->paginate();
+            $forms = FormPendaftaran::orderBy('nim_mhs_1', 'ASC')->paginate();
         return view('form-pendaftaran.index', ['forms'=>$forms]);
     }
     public function show($id)

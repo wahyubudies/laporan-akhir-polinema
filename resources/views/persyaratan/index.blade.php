@@ -58,7 +58,7 @@
                   <tr>
                     <td class="text-center">{{$persyaratans->firstItem() + $loop->index}}</td>
                     <td class="text-center">
-                      <img src="{{Storage::url('public/persyaratans/').$persyaratan->image}}" alt="" width="100px">
+                      <img src="{{ Storage::url('public/persyaratans/').$persyaratan->image }}" alt="" width="100px">
                     </td>
                     <td>{{$persyaratan->content}}</td>
                     @if(Auth::user()->role === 'admin')

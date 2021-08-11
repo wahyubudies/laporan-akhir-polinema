@@ -15,21 +15,28 @@ class PenilaianLaporanController extends Controller
         $key = trim($request->q);
         if($key){   
             $penilaianLaporans = PenilaianLaporan::where('judul', 'LIKE', "%$key%")
+                                ->orderBy('judul', 'ASC')
                                 ->paginate();
         }else{
-            $penilaianLaporans = PenilaianLaporan::latest()
+            $penilaianLaporans = PenilaianLaporan::orderBy('judul', 'ASC')
                                 ->paginate(10);
         }
         return view('penilaian-laporan.index', ['penilaianLaporans' => $penilaianLaporans]);
+    }
+    public function show($id)
+    {
+        $penilaianLaporan = PenilaianLaporan::findOrFail($id);
+        return view('penilaian-laporan.show', ['penilaianLaporan' => $penilaianLaporan]);
     }
     public function guest(Request $request)
     {
         $key = trim($request->q);
         if($key){   
             $penilaianLaporans = PenilaianLaporan::where('judul', 'LIKE', "%$key%")
+                                ->orderBy('judul', 'ASC')
                                 ->paginate();
         }else{
-            $penilaianLaporans = PenilaianLaporan::latest()
+            $penilaianLaporans = PenilaianLaporan::orderBy('judul', 'ASC')
                                 ->paginate(10);
         }
         return view('penilaian-laporan.index', ['penilaianLaporans' => $penilaianLaporans]);
@@ -44,12 +51,12 @@ class PenilaianLaporanController extends Controller
             'judul' => 'required',
             'dosen_pembimbing_1' => 'required',
             'dosen_pembimbing_2' => 'required',
-            'nilai_dospem_1' => 'required|numeric|min:0|max:100',
-            'nilai_dospem_2' => 'required|numeric|min:0|max:100',
+            'nilai_dospem_1' => 'required',
+            'nilai_dospem_2' => 'required',
             'dosen_penguji_1' => 'required',
             'dosen_penguji_2' => 'required',
-            'nilai_dospeng_1' => 'required|numeric|min:0|max:100',
-            'nilai_dospeng_2' => 'required|numeric|min:0|max:100'
+            'nilai_dospeng_1' => 'required',
+            'nilai_dospeng_2' => 'required'
         ]);
         
         if($validator->fails())
@@ -80,12 +87,12 @@ class PenilaianLaporanController extends Controller
             'judul' => 'required',
             'dosen_pembimbing_1' => 'required',
             'dosen_pembimbing_2' => 'required',
-            'nilai_dospem_1' => 'required|numeric|min:0|max:100',
-            'nilai_dospem_2' => 'required|numeric|min:0|max:100',
+            'nilai_dospem_1' => 'required',
+            'nilai_dospem_2' => 'required',
             'dosen_penguji_1' => 'required',
             'dosen_penguji_2' => 'required',
-            'nilai_dospeng_1' => 'required|numeric|min:0|max:100',
-            'nilai_dospeng_2' => 'required|numeric|min:0|max:100'
+            'nilai_dospeng_1' => 'required',
+            'nilai_dospeng_2' => 'required'
         ]);
         
         if($validator->fails())

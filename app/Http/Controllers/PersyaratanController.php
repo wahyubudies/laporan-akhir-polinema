@@ -13,9 +13,9 @@ class PersyaratanController extends Controller
     {
         $key = trim($req->q);
         if($key){            
-            $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->paginate();
+            $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->orderBy('content', 'ASC')->paginate();
         }else{            
-            $persyaratans = Persyaratan::latest()->paginate(10);
+            $persyaratans = Persyaratan::orderBy('content', 'ASC')->paginate(10);
         }        
         $user = Auth::user();
         return view('persyaratan.index', compact(['persyaratans', 'user']));
@@ -24,9 +24,9 @@ class PersyaratanController extends Controller
     {
         $key = trim($req->q);
         if($key){            
-            $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->paginate();
+            $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->orderBy('content', 'ASC')->paginate();
         }else{            
-            $persyaratans = Persyaratan::latest()->paginate(10);
+            $persyaratans = Persyaratan::orderBy('content', 'ASC')->paginate(10);
         }        
         $user = Auth::user();
         return view('persyaratan.index', compact(['persyaratans', 'user']));

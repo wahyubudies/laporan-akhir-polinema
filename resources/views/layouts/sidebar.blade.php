@@ -6,7 +6,7 @@
   <!-- Sidebar user panel (optional) -->
   <div class="user-panel mt-3 pb-3 mb-3 d-flex">
     <div class="info">
-      <a class="d-block"> <b>Sistem Informasi</b> <br> Laporan Akhir <br> Prodi Teknik Telekomunikasi</a>
+      <a class="d-block"> <b>Sistem Layanan</b> <br> Laporan Akhir <br> Prodi Teknik Telekomunikasi</a>
     </div>
   </div>
 

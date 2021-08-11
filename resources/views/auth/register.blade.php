@@ -19,7 +19,7 @@
     <!-- /.login-logo -->
     <div class="card card-secondary">
         <div class="card-header">
-            <h3 class="card-title">Register</h3>
+            <h3 class="card-title">REGISTER</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -29,7 +29,7 @@
             <div class="card-body">
                 <div class="form-group">                    
                     <label for="exampleInputEmail1">Name</label>                
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                    <input id="name" type="text" placeholder="Name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>                    
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required >
+                    <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required >
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>                                        
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    <input id="password" type="password" placeholder="********" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password Confirm</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">                                      
+                    <input id="password-confirm" type="password" placeholder="********" class="form-control" name="password_confirmation" required autocomplete="new-password">                                      
                 </div>
                 <div class="form-group">
                     <label for="role-confirm">Select Role</label>                    
@@ -71,10 +71,15 @@
                         </span>
                     @enderror                          
                 </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <small class="text-muted">
+                    Sudah punya akun ? <a href="{{ route('login') }}">Login</a> disini.
+                </small>
             </div>
         </form>
     </div>

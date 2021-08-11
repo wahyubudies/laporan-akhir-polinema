@@ -56,9 +56,9 @@
                   <tr>
                     <td class="text-center">{{$forms->firstItem() + $loop->index}}</td>
                     <td>{{$form->nim_mhs_1}}</td>
-                    <td>{{$form->nama_mhs_1}}</td>
-                    <td>{{$form->judul}}</td>
-                    <td>{{$form->dosen_penyeleksi_1}}</td>
+                    <td>{{ \Str::limit($form->nama_mhs_1, 15) }}</td>
+                    <td>{{ \Str::limit($form->judul, 25)}}</td>
+                    <td>{{ \Str::limit($form->dosen_penyeleksi_1, 15) }}</td>
                     
                     <td>                                            
                       @if(Auth::user()->role !== 'mahasiswa')

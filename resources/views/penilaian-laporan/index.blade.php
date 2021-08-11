@@ -60,25 +60,26 @@
                   <tr>
                     <td class="text-center">{{$penilaianLaporans->firstItem() + $loop->index}}</td>
                     <td>
-                      {{$pl->judul}}
+                      {{ \Str::limit($pl->judul, 25) }}
                     </td>
                     <td>
                       <ul>
-                        <li>{{$pl->dosen_pembimbing_1}} - {{$pl->nilai_dospem_1}}</li>
-                        <li>{{$pl->dosen_pembimbing_2}} - {{$pl->nilai_dospem_1}}</li>
+                        <li>{{\Str::limit($pl->dosen_pembimbing_1, 15)}} - {{$pl->nilai_dospem_1}}</li>
+                        <li>{{\Str::limit($pl->dosen_pembimbing_2, 15)}} - {{$pl->nilai_dospem_2}}</li>
                       </ul>
                     </td>
                     <td>
                       <ul>
-                        <li>{{$pl->dosen_penguji_1}} - {{$pl->nilai_dospeng_1}}</li>
-                        <li>{{$pl->dosen_penguji_2}} - {{$pl->nilai_dospeng_1}}</li>
+                        <li>{{\Str::limit($pl->dosen_penguji_1, 15)}} - {{$pl->nilai_dospeng_1}}</li>
+                        <li>{{\Str::limit($pl->dosen_penguji_2, 15)}} - {{$pl->nilai_dospeng_2}}</li>
                       </ul>
                     </td>
                     
                     <td>                                            
                       @if(Auth::user()->role !== 'mahasiswa')
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('penilaian-laporan.destroy', $pl->id)}}" method="post">                          
-                        <a href="{{route('penilaian-laporan.edit', $pl->id)}}" class="btn btn-sm btn-primary">Edit</a>                        
+                        <a href="{{route('penilaian-laporan.edit', $pl->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{{route('penilaian-laporan.show', $pl->id)}}" class="btn btn-sm btn-secondary">Detail</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

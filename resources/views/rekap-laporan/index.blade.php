@@ -62,20 +62,27 @@
                   <tr>
                     <td class="text-center">{{$rekapLaporans->firstItem() + $loop->index}}</td>
                     <td>
-                      {{$rl->judul}}
+                      {{ \Str::limit($rl->judul, 35) }}
                     </td>
                     <td>
                       <ul>
-                        <li>{{$rl->dosen_pembimbing_1}}</li>
-                        <li>{{$rl->dosen_pembimbing_2}}</li>
+                        <li>{{ \Str::limit($rl->dosen_pembimbing_1, 20) }}</li>
+                        <li>{{ \Str::limit($rl->dosen_pembimbing_2, 20) }}</li>
                       </ul>
                     </td>
-                    <td><a href="{{$rl->link_drive}}" target="_blank">{{\Str::limit($rl->link_drive, 35)}}</a></td>
+                    <td>
+                        @if($rl->link_drive !== null)
+                          <a href="{{$rl->link_drive}}" target="_blank">{{\Str::limit($rl->link_drive, 15)}}</a>
+                        @else
+                          -
+                        @endif
+                    </td>
                     
                     <td>                                            
                       @if(Auth::user()->role !== 'mahasiswa')
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('rekap-laporan.destroy', $rl->id)}}" method="post">                          
-                        <a href="{{route('rekap-laporan.edit', $rl->id)}}" class="btn btn-sm btn-primary">Edit</a>                        
+                        <a href="{{route('rekap-laporan.edit', $rl->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{{route('rekap-laporan.show', $rl->id) }}" class="btn btn-sm btn-secondary">Detail</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

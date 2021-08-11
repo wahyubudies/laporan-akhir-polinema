@@ -15,21 +15,28 @@ class RekapLaporanController extends Controller
         $key = trim($request->q);
         if($key){            
             $rekapLaporans = RekapLaporan::where('judul','LIKE', "%$key%")
+                                        ->orderBy('judul', 'ASC')
                                         ->paginate();
         }else{
-            $rekapLaporans = RekapLaporan::latest()
+            $rekapLaporans = RekapLaporan::orderBy('judul', 'ASC')
                                         ->paginate(10);
         }
         return view('rekap-laporan.index', ['rekapLaporans' => $rekapLaporans]);
+    }
+    public function show($id)
+    {
+        $rekapLaporan = RekapLaporan::findOrFail($id);
+        return view('rekap-laporan.show', ['rekapLaporan' => $rekapLaporan]);
     }
     public function guest(Request $request)
     {
         $key = trim($request->q);
         if($key){            
             $rekapLaporans = RekapLaporan::where('judul','LIKE', "%$key%")
+                                        ->orderBy('judul', 'ASC')
                                         ->paginate();
         }else{
-            $rekapLaporans = RekapLaporan::latest()
+            $rekapLaporans = RekapLaporan::orderBy('judul', 'ASC')
                                         ->paginate(10);
         }
         return view('rekap-laporan.index', ['rekapLaporans' => $rekapLaporans]);

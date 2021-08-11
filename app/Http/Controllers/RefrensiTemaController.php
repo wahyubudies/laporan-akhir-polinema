@@ -14,25 +14,25 @@ class RefrensiTemaController extends Controller
     {                
         $key = trim($req->q);
         if($key){            
-            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->paginate();
-            //$dosens = RefrensiTema::where('tema', 'LIKE', "%$key%")->get();
-            // $dosens = Dosen::join('refrensi_temas', 'dosens.id', '=', 'refrensi_temas.dosen_id')
-            //                 ->where('refrensi_temas.tema', 'LIKE', "%$key%")
-            //                 ->paginate();
-            //return $dosens;
+            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->orderBy('nama_dosen', 'ASC')->paginate();
         }else{
-            $dosens = Dosen::latest()->paginate(10);
+            $dosens = Dosen::orderBy('nama_dosen', 'ASC')->paginate(10);
         }
         $user = Auth::user();        
         return view('refrensi-tema.index', compact(['dosens','user']));           
+    }
+    public function show($id)
+    {
+        $dosen = Dosen::findOrFail($id);
+        return view('refrensi-tema.show', ['dosen' => $dosen]);
     }
     public function guest(Request $req)
     {                
         $key = trim($req->q);
         if($key){            
-            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->paginate();            
+            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->orderBy('nama_dosen', 'ASC')->paginate();            
         }else{
-            $dosens = Dosen::latest()->paginate(10);
+            $dosens = Dosen::orderBy('nama_dosen', 'ASC')->paginate(10);
         }
         $user = Auth::user();        
         return view('refrensi-tema.index', compact(['dosens','user']));           

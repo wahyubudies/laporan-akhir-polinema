@@ -54,15 +54,20 @@
                   @forelse($dosens as $dosen)
                   <tr>
                     <td class="text-center">{{$dosens->firstItem() + $loop->index}}</td>
-                    <td>{{$dosen->nama_dosen}}</td>
-                    <td>                      
+                    <td>
+                      {{ $dosen->nama_dosen }} <br>
+                      @if(!$dosen->refrensi_temas->isEmpty())
+                      <a href="{{route('refrensi-tema.show', $dosen->id)}}" class="badge badge-secondary">detail</a>
+                      @endif
+                    </td>
+                    <td>                                              
                         @forelse($dosen->refrensi_temas as $rt)
                         <ul>
                           <li>
-                            {{$rt->tema}} <br>
+                            {{ \Str::limit($rt->tema, 35)}} <br>
                             @if(Auth::user()->role !== 'mahasiswa')
                             <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('refrensi-tema.destroy', $rt->id)}}" method="post">                        
-                              <a href="{{route('refrensi-tema.edit', $rt->id)}}" class="badge badge-primary">edit</a>  
+                              <a href="{{route('refrensi-tema.edit', $rt->id)}}" class="badge badge-primary">edit</a>                                
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="badge badge-danger border-0">Hapus</button>

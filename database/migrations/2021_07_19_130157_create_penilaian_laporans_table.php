@@ -18,12 +18,12 @@ class CreatePenilaianLaporansTable extends Migration
             $table->string('judul');
             $table->string('dosen_pembimbing_1');
             $table->string('dosen_pembimbing_2');
-            $table->integer('nilai_dospem_1');
-            $table->integer('nilai_dospem_2');
+            $table->string('nilai_dospem_1');
+            $table->string('nilai_dospem_2');
             $table->string('dosen_penguji_1');
             $table->string('dosen_penguji_2');
-            $table->integer('nilai_dospeng_1');
-            $table->integer('nilai_dospeng_2');
+            $table->string('nilai_dospeng_1');
+            $table->string('nilai_dospeng_2');
             $table->timestamps();
         });
     }

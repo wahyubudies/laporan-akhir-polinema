@@ -27,7 +27,7 @@
                 @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="">Judul</label>
+                    <label for="">Judul</label>                    
                     <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" value="{{old('judul')}}" id="" placeholder="judul*">
                     @error('judul')
                       <div class="alert alert-danger mt-2">
@@ -46,7 +46,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Nilai Pembimbing 1</label>
-                    <input type="number" class="form-control @error('nilai_dospem_1') is-invalid @enderror" name="nilai_dospem_1" value="{{old('nilai_dospem_1')}}" id="" placeholder="nilai_dospem_1*">
+                    <input type="text" class="form-control @error('nilai_dospem_1') is-invalid @enderror" name="nilai_dospem_1" value="{{old('nilai_dospem_1')}}" id="" placeholder="nilai_dospem_1*">
                     @error('nilai_dospem_1')
                       <div class="alert alert-danger mt-2">
                         {{$message}}
@@ -64,7 +64,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Nilai Pembimbing 2</label>
-                    <input type="number" class="form-control @error('nilai_dospem_2') is-invalid @enderror" name="nilai_dospem_2" value="{{old('nilai_dospem_2')}}" id="" placeholder="nilai_dospem_2*">
+                    <input type="text" class="form-control @error('nilai_dospem_2') is-invalid @enderror" name="nilai_dospem_2" value="{{old('nilai_dospem_2')}}" id="" placeholder="nilai_dospem_2*">
                     @error('nilai_dospem_2')
                       <div class="alert alert-danger mt-2">
                         {{$message}}
@@ -82,7 +82,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Nilai Penguji 1</label>
-                    <input type="number" class="form-control @error('nilai_dospeng_1') is-invalid @enderror" name="nilai_dospeng_1" value="{{old('nilai_dospeng_1')}}" id="" placeholder="nilai_dospeng_1*">
+                    <input type="text" class="form-control @error('nilai_dospeng_1') is-invalid @enderror" name="nilai_dospeng_1" value="{{old('nilai_dospeng_1')}}" id="" placeholder="nilai_dospeng_1*">
                     @error('nilai_dospeng_1')
                       <div class="alert alert-danger mt-2">
                         {{$message}}
@@ -100,7 +100,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Nilai Penguji 2</label>
-                    <input type="number" class="form-control @error('nilai_dospeng_2') is-invalid @enderror" name="nilai_dospeng_2" value="{{old('nilai_dospeng_2')}}" id="" placeholder="nilai_dospeng_2*">
+                    <input type="text" class="form-control @error('nilai_dospeng_2') is-invalid @enderror" name="nilai_dospeng_2" value="{{old('nilai_dospeng_2')}}" id="" placeholder="nilai_dospeng_2*">
                     @error('nilai_dospeng_2')
                       <div class="alert alert-danger mt-2">
                         {{$message}}

@@ -12,9 +12,9 @@ class DosenController extends Controller
     {
         $key = trim($req->q);
         if($key){
-            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->paginate();
+            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->orderBy('nama_dosen', 'ASC')->paginate();
         }else{
-            $dosens = Dosen::latest()->paginate(10);
+            $dosens = Dosen::orderBy('nama_dosen', 'ASC')->paginate(10);
         }
         $user = Auth::user();    
         return view('dosen.index', compact(['dosens','user']));
@@ -23,9 +23,9 @@ class DosenController extends Controller
     {
         $key = trim($req->q);
         if($key){
-            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->paginate();
+            $dosens = Dosen::where('nama_dosen', 'LIKE', "%$key%")->orderBy('nama_dosen', 'ASC')->paginate();
         }else{
-            $dosens = Dosen::latest()->paginate(10);
+            $dosens = Dosen::orderBy('nama_dosen', 'ASC')->paginate(10);
         }
         $user = Auth::user();    
         return view('dosen.index', compact(['dosens','user']));
