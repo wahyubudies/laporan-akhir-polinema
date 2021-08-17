@@ -23,11 +23,7 @@
             <div class="card-header">  
               <a href="{{route('form-pendaftaran.export')}}" class="btn btn-sm btn-secondary">Export Data</a>            
               <div class="card-tools">
-                @if(Auth::user()->role !== 'mahasiswa')
                 <form action="{{route('form-pendaftaran.index')}}" method="get">
-                @else
-                <form action="{{route('form-pendaftaran.guest')}}" method="get">
-                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
                     <div class="input-group-append">

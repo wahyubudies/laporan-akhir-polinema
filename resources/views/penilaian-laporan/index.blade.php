@@ -26,11 +26,7 @@
               <a href="{{route('penilaian-laporan.create')}}" class="btn btn-sm btn-success">Tambah</a>
               @endif
               <div class="card-tools">
-                @if(Auth::user()->role !== 'mahasiswa')
                 <form action="{{route('penilaian-laporan.index')}}" method="get">
-                @else
-                <form action="{{route('penilaian-laporan.guest')}}" method="get">
-                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
                     <div class="input-group-append">
@@ -49,10 +45,8 @@
                     <th class="text-center">No</th>
                     <th>Judul Laporan</th>                      
                     <th>Dosen Pembimbing - Nilai</th>          
-                    <th>Dosen Penguji - Nilai</th>               
-                    @if(Auth::user()->role !== 'mahasiswa')
-                    <th>Action</th>                        
-                    @endif                
+                    <th>Dosen Penguji - Nilai</th>          
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,11 +69,11 @@
                       </ul>
                     </td>
                     
-                    <td>                                            
+                    <td class="d-flex">                                            
+                      <a href="{{route('penilaian-laporan.show', $pl->id)}}" class="mr-1 btn btn-sm btn-secondary">Detail</a>
                       @if(Auth::user()->role !== 'mahasiswa')
                       <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('penilaian-laporan.destroy', $pl->id)}}" method="post">                          
-                        <a href="{{route('penilaian-laporan.edit', $pl->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="{{route('penilaian-laporan.show', $pl->id)}}" class="btn btn-sm btn-secondary">Detail</a>
+                        <a href="{{route('penilaian-laporan.edit', $pl->id)}}" class="btn btn-sm btn-primary">Edit</a>                        
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

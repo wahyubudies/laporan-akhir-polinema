@@ -20,16 +20,12 @@
       <div class="row">
         <div class="col-12">
           <div class="card">            
-            <div class="card-header">
+            <div class="card-header">            
             @if(Auth::user()->role === 'admin')
             <a href="{{route('persyaratan.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
             @endif
               <div class="card-tools">
-                @if(Auth::user()->role === 'admin')
                 <form action="{{route('persyaratan.index')}}" method="get">
-                @else
-                <form action="{{route('persyaratan.guest')}}" method="get">
-                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">                  
                       <input type="text" name="q" class="form-control float-right" placeholder="Search">
                       <div class="input-group-append">

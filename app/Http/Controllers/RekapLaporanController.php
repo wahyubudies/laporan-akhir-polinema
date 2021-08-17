@@ -126,9 +126,9 @@ class RekapLaporanController extends Controller
             $data->update([
                 'link_drive' => $request->link_drive
             ]);
-            return redirect('mahasiswa/rekap-laporan')->with(['success' => 'Link berhasil ditambahkan!!']);
+            return redirect('rekap-laporan')->with(['success' => 'Link berhasil ditambahkan!!']);
         } catch (\Exception $e) {
-            return redirect('mahasiswa/rekap-laporan')->with(['error' => 'Link gagal ditambahkan!!']);
+            return redirect('rekap-laporan')->with(['error' => 'Link gagal ditambahkan!!']);
         }
     }
 }

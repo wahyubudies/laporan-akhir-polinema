@@ -4,18 +4,18 @@
 <!-- Sidebar -->
 <div class="sidebar">
   <!-- Sidebar user panel (optional) -->
-  <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+  <div class="user-panel pt-3 pb-3 d-flex">
     <div class="info">
-      <a class="d-block"> <b>Sistem Layanan</b> <br> Laporan Akhir <br> Prodi Teknik Telekomunikasi</a>
+      <h3 class="mb-0 text-white"><b>Hi</b>, {{ Auth::user()->name }}</h3>
+      <p class="mb-0 text-muted">{{ Auth::user()->role }}</p>
     </div>
   </div>
-
   <!-- Sidebar Menu -->
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       @if(Auth::user()->role === 'admin')
       <li class="nav-item">
-        <a href="{!!URL::to('admin/persyaratan')!!}" class="nav-link {{ (request()->is('admin/persyaratan*') ? 'active' : '') }}">
+        <a href="{!!URL::to('persyaratan')!!}" class="nav-link {{ (request()->is('persyaratan*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Persyaratan            
@@ -23,7 +23,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{!!URL::to('admin/pengumuman')!!}" class="nav-link {{ (request()->is('admin/pengumuman*') ? 'active' : '') }}">
+        <a href="{!!URL::to('pengumuman')!!}" class="nav-link {{ (request()->is('pengumuman*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Pengumuman
@@ -31,14 +31,14 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{!!URL::to('admin/dosen')!!}" class="nav-link {{ (request()->is('admin/dosen*') ? 'active' : '') }}">
+        <a href="{!!URL::to('dosen')!!}" class="nav-link {{ (request()->is('dosen*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Dosen Penyeleksi
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('admin/refrensi-tema*') | request()->is('admin/judul-diterima*') | request()->is('admin/form-pendaftaran*') | request()->is('admin/rekap-laporan*') | request()->is('admin/penilaian-laporan*') ? 'menu-open' : '') }}">
+      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('form-pendaftaran*') | request()->is('rekap-laporan*') | request()->is('penilaian-laporan*') ? 'menu-open' : '') }}">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
@@ -48,25 +48,25 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{!!URL::to('admin/refrensi-tema')!!}" class="nav-link {{ (request()->is('admin/refrensi-tema*') ? 'active' : '') }}">
+            <a href="{!!URL::to('refrensi-tema')!!}" class="nav-link {{ (request()->is('refrensi-tema*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Refrensi Tema Dosen</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('admin/form-pendaftaran')!!}" class="nav-link {{ (request()->is('admin/form-pendaftaran') ? 'active' : '') }}">
+            <a href="{!!URL::to('form-pendaftaran')!!}" class="nav-link {{ (request()->is('form-pendaftaran*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Rekap Judul Proposal LA</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('admin/rekap-laporan')!!}" class="nav-link {{ (request()->is('admin/rekap-laporan*') ? 'active' : '') }}">
+            <a href="{!!URL::to('rekap-laporan')!!}" class="nav-link {{ (request()->is('rekap-laporan*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Rekap Laporan Akhir</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('admin/penilaian-laporan')!!}" class="nav-link {{ (request()->is('admin/penilaian-laporan*') ? 'active' : '') }}">
+            <a href="{!!URL::to('penilaian-laporan')!!}" class="nav-link {{ (request()->is('penilaian-laporan*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Penilaian Laporan Akhir</p>
             </a>
@@ -75,7 +75,7 @@
       </li>     
       @elseif(Auth::user()->role === 'pembimbing')
       <li class="nav-item">
-        <a href="{!!URL::to('pembimbing/persyaratan')!!}" class="nav-link {{ (request()->is('pembimbing/persyaratan*') ? 'active' : '') }}">
+        <a href="{!!URL::to('persyaratan')!!}" class="nav-link {{ (request()->is('persyaratan*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Persyaratan
@@ -83,7 +83,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{!!URL::to('pembimbing/pengumuman')!!}" class="nav-link {{ (request()->is('pembimbing/pengumuman*') ? 'active' : '') }}">
+        <a href="{!!URL::to('pengumuman')!!}" class="nav-link {{ (request()->is('pengumuman*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Pengumuman
@@ -91,14 +91,14 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{!!URL::to('pembimbing/dosen')!!}" class="nav-link {{ (request()->is('pembimbing/dosen*') ? 'active' : '') }}">
+        <a href="{!!URL::to('dosen')!!}" class="nav-link {{ (request()->is('dosen*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Dosen Penyeleksi
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('pembimbing/refrensi-tema*') | request()->is('pembimbing/judul-diterima*') | request()->is('pembimbing/form-pendaftaran*') | request()->is('pembimbing/rekap-laporan*') | request()->is('pembimbing/penilaian-laporan*') ? 'menu-open' : '') }}">
+      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('form-pendaftaran*') | request()->is('rekap-laporan*') | request()->is('penilaian-laporan*') ? 'menu-open' : '') }}">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
@@ -108,25 +108,33 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{!!URL::to('pembimbing/refrensi-tema')!!}" class="nav-link {{ (request()->is('pembimbing/refrensi-tema*') ? 'active' : '') }}">
+            <a href="{!!URL::to('refrensi-tema')!!}" class="nav-link {{ (request()->is('refrensi-tema*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Refrensi Tema Dosen</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('pembimbing/form-pendaftaran')!!}" class="nav-link {{ (request()->is('pembimbing/form-pendaftaran') ? 'active' : '') }}">
+            <a href="{!!URL::to('form-pendaftaran')!!}" class="nav-link {{ (request()->is('form-pendaftaran') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Rekap Judul Proposal LA</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('pembimbing/rekap-laporan')!!}" class="nav-link {{ (request()->is('pembimbing/rekap-laporan*') ? 'active' : '') }}">
+            <a href="{!!URL::to('rekap-laporan')!!}" class="nav-link {{ (request()->is('rekap-laporan*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Rekap Laporan Akhir</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('pembimbing/penilaian-laporan')!!}" class="nav-link {{ (request()->is('pembimbing/penilaian-laporan*') ? 'active' : '') }}">
+            <a href="{!!URL::to('logbook/list-logbook')!!}" class="nav-link {{ (request()->is('logbook*') ? 'active' : '') }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>
+                Logbook
+              </p>
+            </a>        
+          </li>
+          <li class="nav-item">
+            <a href="{!!URL::to('penilaian-laporan')!!}" class="nav-link {{ (request()->is('penilaian-laporan*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Penilaian Laporan Akhir</p>
             </a>
@@ -135,7 +143,7 @@
       </li>             
       @elseif(Auth::user()->role === 'mahasiswa')
       <li class="nav-item">
-        <a href="{!!URL::to('mahasiswa/persyaratan')!!}" class="nav-link {{ (request()->is('mahasiswa/persyaratan*') ? 'active' : '') }}">
+        <a href="{!!URL::to('persyaratan')!!}" class="nav-link {{ (request()->is('persyaratan*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Persyaratan
@@ -143,7 +151,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{!!URL::to('mahasiswa/pengumuman')!!}" class="nav-link {{ (request()->is('mahasiswa/pengumuman*') ? 'active' : '') }}">
+        <a href="{!!URL::to('pengumuman')!!}" class="nav-link {{ (request()->is('pengumuman*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Pengumuman
@@ -151,14 +159,14 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{!!URL::to('mahasiswa/dosen')!!}" class="nav-link {{ (request()->is('mahasiswa/dosen*') ? 'active' : '') }}">
+        <a href="{!!URL::to('dosen')!!}" class="nav-link {{ (request()->is('dosen*') ? 'active' : '') }}">
           <i class="nav-icon far fa-image"></i>
           <p>
             Dosen Penyeleksi
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('mahasiswa/refrensi-tema*') | request()->is('mahasiswa/judul-diterima*') | request()->is('mahasiswa/form-pendaftaran*') | request()->is('mahasiswa/rekap-laporan*') | request()->is('mahasiswa/penilaian-laporan*') ? 'menu-open' : '') }}">
+      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('form-pendaftaran*') | request()->is('pendaftaran/create') | request()->is('rekap-laporan*') | request()->is('penilaian-laporan*') | request()->is('logbook*') ? 'menu-open' : '') }}">
         <a class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
@@ -168,31 +176,37 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ URL::to('mahasiswa/refrensi-tema') }}" class="nav-link {{ (request()->is('mahasiswa/refrensi-tema*') ? 'active' : '') }}">
+            <a href="{{ URL::to('refrensi-tema') }}" class="nav-link {{ (request()->is('refrensi-tema*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Refrensi Tema Dosen</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('mahasiswa/form-pendaftaran/create')!!}" class="nav-link {{ (request()->is('mahasiswa/form-pendaftaran/create') ? 'active' : '') }}">
+            <a href="{!!URL::to('pendaftaran/create')!!}" class="nav-link {{ (request()->is('pendaftaran/create') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Form Pendaftaran Proposal LA</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('mahasiswa/form-pendaftaran')!!}" class="nav-link {{ (request()->is('mahasiswa/form-pendaftaran') ? 'active' : '') }}">
+            <a href="{!!URL::to('form-pendaftaran')!!}" class="nav-link {{ (request()->is('form-pendaftaran*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Rekap Judul Proposal LA</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('mahasiswa/rekap-laporan')!!}" class="nav-link {{ (request()->is('mahasiswa/rekap-laporan*') ? 'active' : '') }}">
+            <a href="{!!URL::to('rekap-laporan')!!}" class="nav-link {{ (request()->is('rekap-laporan*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Rekap Laporan Akhir</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('mahasiswa/penilaian-laporan')!!}" class="nav-link {{ (request()->is('mahasiswa/penilaian-laporan*') ? 'active' : '') }}">
+            <a href="{!!URL::to('logbook')!!}" class="nav-link {{ (request()->is('logbook*') ? 'active' : '') }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Logbook Laporan Akhir</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{!!URL::to('penilaian-laporan')!!}" class="nav-link {{ (request()->is('penilaian-laporan*') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Penilaian Laporan Akhir</p>
             </a>

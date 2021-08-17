@@ -8,21 +8,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PersyaratanController extends Controller
-{   
-    public function index(Request $req)
+{               
+    public function __construct()
+    {                        
+        $this->middleware('auth');
+    }
+    public function index(Request $request)
     {
-        $key = trim($req->q);
+        $key = trim($request->q);
         if($key){            
             $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->orderBy('content', 'ASC')->paginate();
         }else{            
             $persyaratans = Persyaratan::orderBy('content', 'ASC')->paginate(10);
         }        
-        $user = Auth::user();
-        return view('persyaratan.index', compact(['persyaratans', 'user']));
+        return view('persyaratan.index', compact('persyaratans'));
     }    
-    public function guest(Request $req)
+    public function guest(Request $request)
     {
-        $key = trim($req->q);
+        $key = trim($request->q);
         if($key){            
             $persyaratans = Persyaratan::where('content', 'LIKE', "%$key%")->orderBy('content', 'ASC')->paginate();
         }else{            

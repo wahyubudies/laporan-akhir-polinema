@@ -25,11 +25,7 @@
             <a href="{{route('refrensi-tema.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
             @endif
               <div class="card-tools">
-                @if(Auth::user()->role !== 'mahasiswa')
                 <form action="{{route('refrensi-tema.index')}}" method="get">
-                @else
-                <form action="{{route('refrensi-tema.guest')}}" method="get">
-                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
                     <div class="input-group-append">
@@ -46,7 +42,7 @@
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th>Nama Dosen</th>                      
+                    <th>Nama Dosen</th>
                     <th>Daftar Refrensi Tema</th>
                   </tr>
                 </thead>

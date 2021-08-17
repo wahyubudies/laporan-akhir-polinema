@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,27 +28,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo;
-    public function redirectTo()
-    {
-        switch (Auth::user()->role) {
-            case 'admin':
-                $this->redirectTo = 'admin/persyaratan';
-                return $this->redirectTo;
-                break;
-            case 'mahasiswa':
-                $this->redirectTo = 'mahasiswa/persyaratan';
-                return $this->redirectTo;
-                break;  
-            case 'pembimbing':
-                $this->redirectTo = 'pembimbing/persyaratan';
-                return $this->redirectTo;
-                break;  
-            default:
-                $this->redirectTo = '/login';
-                return $this->redirectTo;                
-        }
-    }
+    protected $redirectTo = '/persyaratan';
+    
     /**
      * Create a new controller instance.
      *
@@ -55,10 +37,33 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
     public function showLoginForm()
     {        
         return view('auth.login');
+    }
+    public function login(Request $request)
+    {
+        $inputVal = $request->all();
+   
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if(auth()->attempt(array('email' => $inputVal['email'], 'password' => $inputVal['password']))){
+            if (auth()->user()->role == 'admin') 
+                return redirect()->route('persyaratan.index');
+            else if (auth()->user()->role == 'pembimbing') 
+                return redirect()->route('persyaratan.index');
+            else if (auth()->user()->role == 'mahasiswa') 
+                return redirect()->route('persyaratan.index');
+            else
+                return redirect()->route('login');            
+        }else{
+            return redirect()->route('login')
+                ->with('error','Email & Password are incorrect.');
+        }   
     }
 }

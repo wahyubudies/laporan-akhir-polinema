@@ -25,11 +25,7 @@
             <a href="{{route('dosen.create')}}" class="btn btn-sm btn-success float-left" >Tambah</a>           
             @endif
               <div class="card-tools">
-                @if(Auth::user()->role === 'admin')
                 <form action="{{route('dosen.index')}}" method="get">
-                @else
-                <form action="{{route('dosen.guest')}}" method="get">
-                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
 

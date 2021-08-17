@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -17,8 +16,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        
+        $role = Auth::user()->role;
+        if($role == "admin"){
+            return redirect()->to('admin'); }
+        else if($role == "pembimbing") {
+            return redirect()->to('pembimbing'); }
     }
 }

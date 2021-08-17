@@ -17,9 +17,9 @@ class PembimbingMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role == 'pembimbing' || Auth::user()->role == 'admin'){
-            return $next($request);
+        if(Auth::check() && Auth::user()->role != 'pembimbing'){
+            return redirect()->route('logout');
         }
-        abort(404);
+        return $next($request);
     }
 }

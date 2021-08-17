@@ -45,7 +45,7 @@ class DosenController extends Controller
         ]);
         if(!$dosen)
         {
-            return redirect()->route('dosen.index')->with(['error' => 'Data gagal disimpan!!']);            
+            return redirect()->route('dosen.index')->with(['error' => 'Data gagal disimpan!!']);
         }else{
             return redirect()->route('dosen.index')->with(['success' => 'Data berhasil disimpan!!']);
         }

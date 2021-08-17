@@ -28,7 +28,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="">Judul Laporan</label>
-                    <input type="text" class="form-control @error('nim_mhs_1') is-invalid @enderror" name="judul" value="{{old('judul')}}" id="" placeholder="judul*">
+                    <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" value="{{old('judul')}}" id="" placeholder="judul*">
                     @error('judul')
                       <div class="alert alert-danger mt-2">
                         {{$message}}

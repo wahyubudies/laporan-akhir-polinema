@@ -28,11 +28,7 @@
               <a href="{{route('rekap-laporan.insertLink')}}" class="btn-sm btn btn-success">Masukkan Link</a>
               @endif
               <div class="card-tools">
-                @if(Auth::user()->role !== 'mahasiswa')
                 <form action="{{route('rekap-laporan.index')}}" method="get">
-                @else
-                <form action="{{route('rekap-laporan.guest')}}" method="get">
-                @endif
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
                     <div class="input-group-append">
@@ -51,10 +47,8 @@
                     <th class="text-center">No</th>
                     <th>Judul Laporan</th>                      
                     <th>Dosen Pembimbing</th>
-                    <th>Link Drive Mahasiswa</th> 
-                    @if(Auth::user()->role !== 'mahasiswa')                 
-                    <th>Action</th>                        
-                    @endif                
+                    <th>Link Drive Mahasiswa</th>                                    
+                    <th>Action</th>                                            
                   </tr>
                 </thead>
                 <tbody>
@@ -78,11 +72,11 @@
                         @endif
                     </td>
                     
-                    <td>                                            
+                    <td class="d-flex"> 
+                      <a href="{{route('rekap-laporan.show', $rl->id) }}" class="btn btn-sm btn-secondary mr-1">Detail</a>       
                       @if(Auth::user()->role !== 'mahasiswa')
-                      <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('rekap-laporan.destroy', $rl->id)}}" method="post">                          
-                        <a href="{{route('rekap-laporan.edit', $rl->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="{{route('rekap-laporan.show', $rl->id) }}" class="btn btn-sm btn-secondary">Detail</a>
+                      <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{route('rekap-laporan.destroy', $rl->id)}}" method="post">
+                        <a href="{{route('rekap-laporan.edit', $rl->id)}}" class="btn btn-sm btn-primary">Edit</a>                                                
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
