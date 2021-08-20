@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LogbookExport;
 use App\Models\Logbook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LogbookController extends Controller
 {
@@ -37,5 +40,9 @@ class LogbookController extends Controller
         } catch (\Exception $th) {
             throw $th;
         }
+    }
+    public function exportExcel($idDataLogbook)
+    {
+        return Excel::download(new LogbookExport($idDataLogbook), time() . '_' . 'logbook' . '_' . Auth::user()->name . '.xlsx');
     }
 }

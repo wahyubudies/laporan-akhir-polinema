@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pipelineLogbook()
+    public function DataLogbook()
     {
         return $this->hasOne(PipelineLogbook::class);
     }

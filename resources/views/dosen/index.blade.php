@@ -64,12 +64,13 @@
                       </form>
                     </td>
                     @endif
-                  </tr>
-                  <tr>
+                  </tr>                  
                   @empty
-                  <div class="alert alert-danger">
-                      Data dosen belum Tersedia.
-                  </div>
+                  <tr>
+                    <div class="alert alert-danger">
+                        Data dosen belum Tersedia.
+                    </div>
+                  </tr>
                   @endforelse
                 </tbody>
               </table>

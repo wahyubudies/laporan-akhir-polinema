@@ -12,4 +12,9 @@ class Logbook extends Model
         'narasi',
         'data_logbook_id'
     ];
+
+    public function DataLogbook()
+    {
+        return $this->belongsTo(DataLogbook::class);
+    }
 }

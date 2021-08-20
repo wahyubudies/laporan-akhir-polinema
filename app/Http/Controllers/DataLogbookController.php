@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DataLogbookExport;
+use App\Exports\LogbookExport;
 use App\Models\DataLogbook;
 use App\Models\Logbook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DataLogbookController extends Controller
 {    
@@ -15,11 +19,37 @@ class DataLogbookController extends Controller
     {
         $idUser = Auth::user()->id;
         $DataLogbook = DataLogbook::select(
-            'data_logbooks.id',
-            'data_logbooks.judul',
-            'data_logbooks.dospem1',
-            'data_logbooks.dospem2',
-            'data_logbooks.created_at')
+            'id',
+            'judul',
+            'qrcode_dospem1',
+            'dospem1',
+            'dospem2',
+            'qrcode_dospem2',
+            'created_at')
+            ->where('user_id', $idUser)
+            ->first();
+        $Logbook = Logbook::where('data_logbook_id', $DataLogbook->id ?? null)
+            ->select(
+                'id',
+                'created_at',
+                'narasi'
+            )
+            ->get();
+        return view('data-logbook.index', [
+            'DataLogbook' => $DataLogbook,
+            'Logbook' => $Logbook
+        ]);
+    }
+    public function show($idUser)
+    {
+        $DataLogbook = DataLogbook::select(
+            'id',
+            'judul',
+            'qrcode_dospem1',
+            'dospem1',
+            'dospem2',
+            'qrcode_dospem2',
+            'created_at')
             ->where('user_id', $idUser)
             ->first();
         $Logbook = Logbook::where('data_logbook_id', $DataLogbook->id ?? null)
@@ -55,8 +85,54 @@ class DataLogbookController extends Controller
         
         return redirect()->route('logbook.index')->with(['success' => 'Data berhasil ditambah!!']);
     }
-    public function listLogbook()
+    public function listLogbook(Request $request)
     {
-        return view('data-logbook.list-data-logbook');
+        $data = DataLogbook::whereHas('user', function($query){
+            $query->where('users.role', 'mahasiswa');
+        });
+
+        $search = trim($request->q);
+        if($search)
+            $dataLogbooks = $data->where('judul', 'like', '%' . $search . '%')->paginate(10);
+
+        $dataLogbooks = $data->paginate(10);
+        
+        return view('data-logbook.list-data-logbook', [
+            'dataLogbooks' => $dataLogbooks
+        ]);
+    }
+    public function exportExcel()
+    {
+        return Excel::download(new DataLogbookExport(), time() . '_' . 'data-logbook' . '.xlsx');        
+    }
+    public function generateQrCode1($idDataLogbook)
+    {
+        $filenameQrcode = time() . '_' . Auth::user()->name . '_' . 'dospem1' . '.png';        
+
+        $data = DataLogbook::find($idDataLogbook);
+        $data->qrcode_dospem1 = $filenameQrcode;
+        $data->save();        
+
+        $dataQrCode = Auth::user()->name . '_' . $data->updated_at->format('d M Y');
+        QrCode::size(200)
+                ->format('png')          
+                ->generate($dataQrCode, storage_path('app/public/qrcode/' . $filenameQrcode));
+        
+        return redirect()->route('logbook.show', $data->user->id)->with(['success' => 'QR Code berhasil ditambahkan']);
+    }
+    public function generateQrCode2($idDataLogbook)
+    {
+        $filenameQrcode = time() . '_' . Auth::user()->name . '_' . 'dospem2' . '.png';        
+
+        $data = DataLogbook::find($idDataLogbook);
+        $data->qrcode_dospem2 = $filenameQrcode;
+        $data->save();        
+
+        $dataQrCode = Auth::user()->name . '_' . $data->updated_at->format('d M Y');
+        QrCode::size(200)
+                ->format('png')          
+                ->generate($dataQrCode, storage_path('app/public/qrcode/' . $filenameQrcode));
+        
+        return redirect()->route('logbook.show', $data->user->id)->with(['success' => 'QR Code berhasil ditambahkan']);
     }
 }

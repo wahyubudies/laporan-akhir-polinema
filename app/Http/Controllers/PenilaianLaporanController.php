@@ -129,6 +129,7 @@ class PenilaianLaporanController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new PenilaianLaporanExport(), 'penilaian-laporan.xlsx');
+        $fileName = time() . '_' . 'penilaian-laporan.xlsx';
+        return Excel::download(new PenilaianLaporanExport(), $fileName);
     }
 }

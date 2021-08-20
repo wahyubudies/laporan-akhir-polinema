@@ -16,14 +16,17 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          @if(isset($DataLogbook) || isset($Logbook))
+          @if(isset($DataLogbook) && isset($Logbook))
           <div class="card">
             <div class="card-header">                  
-                <b>Data Logbook</b>              
+                <b>Data Logbook</b>       
+                @if(Auth::user()->role !== 'mahasiswa' )
+                <a href="{{ route('list.logbook') }}" class="btn btn-sm btn-secondary float-right">Kembali</a>
+                @endif
             </div>          
             <div class="card-body table-responsive p-0" >              
                 <div class="card-body">
-                  <table class="table table-striped">                                      
+                  <table class="table table-striped">
                       <tr>
                         <th>Judul</th>
                       </tr>
@@ -34,25 +37,55 @@
                         <th>Dosen Pembimbing 1</th>
                       </tr>
                       <tr>
-                        <td>{{ $DataLogbook->dospem1 }}</td>
+                        <td> 
+                          {{ $DataLogbook->dospem1 }}
+                          @if(is_null($DataLogbook->qrcode_dospem1) && Auth::user()->role !== 'mahasiswa')
+                            <form onsubmit="return confirm('Apakah anda yakin untuk memberikan qr code ?')" action="{{ route('data-logbook.code1', $DataLogbook->id) }}" method="post">
+                              @csrf
+                              @method('put')
+                              <button type="submit" class="border-0 badge badge-success">Generate QR Code</button>
+                            </form>
+                          @endif
+                        </td>
                       </tr>
                       <tr>
                         <th>QR Code Dosen Pembimbing 1</th>
                       </tr>
                       <tr>
-                        <td>{{ $DataLogbook->qrcode_dospem1 ?? '-' }}</td>
+                        <td>
+                          @if(is_null($DataLogbook->qrcode_dospem1) || $DataLogbook->qrcode_dospem1 == '')
+                            -
+                          @else
+                            <img src="{{ asset('storage/qrcode/' . $DataLogbook->qrcode_dospem1) }}" alt="">
+                          @endif
+                        </td>
                       </tr>
                       <tr>
                         <th>Dosen Pembimbing 2</th>
                       </tr>
                       <tr>
-                        <td>{{ $DataLogbook->dospem2 }}</td>                    
+                        <td>
+                          {{ $DataLogbook->dospem2 }} 
+                          @if(is_null($DataLogbook->qrcode_dospem2) && Auth::user()->role !== 'mahasiswa')
+                            <form onsubmit="return confirm('Apakah anda yakin untuk memberikan qr code ?')" action="{{ route('data-logbook.code2', $DataLogbook->id) }}" method="post">
+                              @csrf
+                              @method('put')
+                              <button type="submit" class="border-0 badge badge-success">Generate QR Code</button>
+                            </form>
+                          @endif
+                        </td>
                       </tr>
                       <tr>
                         <th>QR Code Dosen Pembimbing 2</th>
                       </tr>
                       <tr>
-                        <td>{{ $DataLogbook->qrcode_dospem2 ?? '-' }}</td>
+                        <td>
+                          @if(is_null($DataLogbook->qrcode_dospem2) || $DataLogbook->qrcode_dospem2 == '')
+                            -
+                          @else
+                            <img src="{{ asset('storage/qrcode/' . $DataLogbook->qrcode_dospem2) }}" alt="">
+                          @endif
+                        </td>
                       </tr>
                       <tr>
                         <th>Dibuat tanggal</th>
@@ -70,8 +103,9 @@
             <div class="card-header">
               <b>Narasi Logbook</b>
             </div>
-            <div class="card-body table-responsive">              
-              <form action="{{ route('logbook.store-narasi', $DataLogbook->id) }}" method="post">
+            <div class="card-body table-responsive">
+              @if(Auth::user()->role == 'mahasiswa')          
+              <form class="mb-5" action="{{ route('logbook.store-narasi', $DataLogbook->id) }}" method="post">
                   @csrf
                   <div class="row">
                     <div class="col-lg-12">
@@ -84,18 +118,21 @@
                           </div>
                         @enderror
                         <button type="submit" class="btn btn-sm btn-success float-right mt-3">Submit</button>
-                        <button class="btn btn-sm btn-secondary float-right mt-3 mr-3">Export Logbook</button>                        
+                        <a href="{{route('logbook.export', $DataLogbook->id)}}" class="btn btn-sm btn-secondary float-right mt-3 mr-3">Export Logbook</a>
                       </div>   
                     </div>
                   </div>
               </form>
-              <table class="table text-nowrap mt-5">
+              @endif
+              <table class="table text-nowrap">
                   <thead>
                     <tr>
                       <th class="text-center">No</th>
                       <th>Tanggal</th>
-                      <th>Narasi</th>
-                      <th>Action</th>                             
+                      <th>Narasi</th> 
+                      @if(Auth::user()->role == 'mahasiswa')
+                      <th>Action</th>                       
+                      @endif
                     </tr>
                   </thead>
                   <tbody>
@@ -104,6 +141,7 @@
                       <td class="text-center">{{$loop->iteration}}</td>
                       <td>{{ $logbook->created_at->format('d M Y') }}</td>
                       <td>{{ $logbook->narasi }}</td>
+                      @if(Auth::user()->role == 'mahasiswa')
                       <td>
                         <form onsubmit="return confirm('Apakah anda yakin ?')" action="{{ route('logbook.delete-narasi', $logbook->id) }}" method="post">
                           @csrf
@@ -111,6 +149,7 @@
                           <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                         </form>
                       </td>
+                      @endif
                     </tr>
                     @empty
                     <tr>

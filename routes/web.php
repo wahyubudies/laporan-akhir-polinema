@@ -43,6 +43,10 @@ Route::middleware(['auth'])->group(function(){
   Route::post('logbook/store-narasi/{id}', [LogbookController::class, 'storeNarasi'])->name('logbook.store-narasi');
   Route::delete('logbook/delete-narasi/{id}', [LogbookController::class, 'deleteNarasi'])->name('logbook.delete-narasi');
   Route::get('logbook/list-logbook', [DataLogbookController::class, 'listLogbook'])->name('list.logbook');
+  Route::get('logbok/logbook-excel/{id}', [LogbookController::class, 'exportExcel'])->name('logbook.export');
+  Route::get('logbook/data-logbook-excel', [DataLogbookController::class, 'exportExcel'])->name('data-logbook.export');
+  Route::put('logbook/generate-code-dospem1/{id}', [DataLogbookController::class, 'generateQrCode1'])->name('data-logbook.code1');
+  Route::put('logbook/generate-code-dospem2/{id}', [DataLogbookController::class, 'generateQrCode2'])->name('data-logbook.code2');
   Route::resource('logbook', DataLogbookController::class);
   Route::get('/logout', function() {
       Auth::logout();

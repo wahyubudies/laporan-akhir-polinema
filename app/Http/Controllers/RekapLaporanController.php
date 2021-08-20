@@ -105,7 +105,8 @@ class RekapLaporanController extends Controller
     }
     public function exportExcel()
     {
-        return Excel::download(new RekapLaporanExport(), 'rekap-laporan.xlsx');
+        $fileName = time() . '_' . 'rekap-laporan.xlsx';
+        return Excel::download(new RekapLaporanExport(), $fileName);
     }
     public function insertLink()
     {

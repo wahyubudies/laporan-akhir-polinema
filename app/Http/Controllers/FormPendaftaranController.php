@@ -160,6 +160,7 @@ class FormPendaftaranController extends Controller
     }
     public function fileExport() 
     {
-        return Excel::download(new FormPendaftaransExport, 'form-pendaftaran.xlsx');
+        $fileName = time() . '_' . 'form-pendaftaran.xlsx';
+        return Excel::download(new FormPendaftaransExport, $fileName);
     }
 }
