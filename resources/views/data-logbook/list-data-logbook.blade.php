@@ -5,7 +5,7 @@
     <div class="row mb-2">
       <div class="col-sm-12">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>            
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item active">Logbook</li>
         </ol>
       </div>
@@ -16,9 +16,10 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="card">  
+        <div class="card">
           <div class="card-header">
             <a href="{{route('data-logbook.export')}}" class="btn btn-sm btn-secondary">Export Data</a>
+            <a href="{{ route('qrcode-generator') }}" class="btn btn-sm btn-warning">QR Code Generator</a>            
             <div class="card-tools">
               <form action="{{route('list.logbook')}}" method="get">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -32,7 +33,7 @@
                 </div>
               </form>
             </div>
-          </div>        
+          </div>
           <div class="card-body">
             <table class="table text-nowrap">
               <thead>
@@ -65,12 +66,12 @@
                   <td>
                     <a href="{{ route('logbook.show', $dataLogbook->user->id) }}" class="btn btn-sm btn-secondary">Detail</a>
                   </td>
-                </tr>   
+                </tr>
                 @empty
                 <tr>
                   <div class="alert alert-danger">
                       Data dosen belum Tersedia.
-                  </div>                 
+                  </div>
                 </tr>
                 @endforelse
               </tbody>

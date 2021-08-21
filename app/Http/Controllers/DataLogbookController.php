@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DataLogbookExport;
-use App\Exports\LogbookExport;
 use App\Models\DataLogbook;
 use App\Models\Logbook;
+use App\Models\QrCode as ModelsQrCode;
+use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -134,5 +136,44 @@ class DataLogbookController extends Controller
                 ->generate($dataQrCode, storage_path('app/public/qrcode/' . $filenameQrcode));
         
         return redirect()->route('logbook.show', $data->user->id)->with(['success' => 'QR Code berhasil ditambahkan']);
+    }
+    public function qrcodeGenerator()
+    {
+        return view('data-logbook.qrcode-generator');
+    }
+    public function qrcodeGeneratorStore(Request $request)
+    {
+        $this->validate($request,[
+            'pembimbing' => 'required',
+            'mahasiswa' => 'required'
+        ]);        
+
+        $pembimbing = $request->pembimbing;
+        $mahasiswa = $request->mahasiswa;
+
+        $filenameQrcode = time() . '_' . 'Qr-Code' . '_' . Carbon::now()->format('d-m-Y') . '.png';
+        
+        $dataQrCode = "Dosen : " . $pembimbing . "\n" . "Mahasiswa : " . $mahasiswa . "\n" . "Tanggal : " . Carbon::now()->format('d-m-Y');
+        $qrCode = QrCode::encoding('UTF-8')
+        ->size(200)
+        ->format('png')          
+        ->generate($dataQrCode, storage_path('app/public/qrcode/' . $filenameQrcode));
+
+        $data = new ModelsQrCode();
+        $data->pembimbing = $pembimbing;
+        $data->mahasiswa = $mahasiswa;
+        $data->qrcode = $filenameQrcode;
+        $data->tanggal = Carbon::now()->format('d-m-Y');
+        $data->save();        
+                
+        return view('data-logbook.qrcode-show', [
+            'data' => $data
+        ]);
+    }
+    public function qrcodeGeneratorDownlaod($idQrcode)
+    {
+        $data = ModelsQrCode::find($idQrcode);
+        $path = storage_path() . '/app/public/qrcode/' . $data->qrcode;
+        return response()->download($path, $data->qrcode, ['Content-Type: image/png']);
     }
 }

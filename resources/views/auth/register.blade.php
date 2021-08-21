@@ -60,8 +60,7 @@
                 </div>
                 <div class="form-group">
                     <label for="role-confirm">Select Role</label>                    
-                    <select name="role" id="role-confirm" class="form-control @error('role') is-invalid @enderror">
-                        <option value="admin">Admin</option>
+                    <select name="role" id="role-confirm" class="form-control @error('role') is-invalid @enderror">                        
                         <option value="mahasiswa">Mahasiswa</option>
                         <option value="pembimbing">Pembimbing</option>
                     </select>

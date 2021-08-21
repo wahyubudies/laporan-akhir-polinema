@@ -38,7 +38,7 @@
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('form-pendaftaran*') | request()->is('rekap-laporan*') | request()->is('penilaian-laporan*') ? 'menu-open' : '') }}">
+      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('form-pendaftaran*') | request()->is('rekap-laporan*') | request()->is('penilaian-laporan*') | request()->is('logbook*') | request()->is('qrcode-generator') ? 'menu-open' : '') }}">
         <a href="#" class="nav-link d-flex align-items-center">
           <i class="nav-icon fa fa-circle"></i>
           <p>
@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('logbook/list-logbook')!!}" class="nav-link d-flex align-items-center {{ (request()->is('logbook*') ? 'active' : '') }}">
+            <a href="{!!URL::to('logbook/list-logbook')!!}" class="nav-link d-flex align-items-center {{ (request()->is('logbook*') || request()->is('qrcode-generator') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Logbook Laporan Akhir</p>
             </a>
@@ -104,7 +104,7 @@
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('form-pendaftaran*') | request()->is('rekap-laporan*') | request()->is('penilaian-laporan*') | request()->is('logbook*') ? 'menu-open' : '') }}">
+      <li class="nav-item {{ (request()->is('refrensi-tema*') || request()->is('judul-diterima*') || request()->is('form-pendaftaran*') || request()->is('rekap-laporan*') || request()->is('penilaian-laporan*') || request()->is('logbook*') || request()->is('qrcode-generator') || request()->is('qrcode-generator') ? 'menu-open' : '') }}">
         <a href="#" class="nav-link d-flex align-items-center">
           <i class="nav-icon fa fa-circle"></i>
           <p>
@@ -132,7 +132,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!!URL::to('logbook/list-logbook')!!}" class="nav-link d-flex align-items-center {{ (request()->is('logbook*') ? 'active' : '') }}">
+            <a href="{!!URL::to('logbook/list-logbook')!!}" class="nav-link d-flex align-items-center {{ (request()->is('logbook*') || request()->is('qrcode-generator') ? 'active' : '') }}">
               <i class="far fa-circle nav-icon"></i>
               <p>
                 Logbook Mahasiswa
@@ -172,7 +172,7 @@
           </p>
         </a>
       </li>
-      <li class="nav-item {{ (request()->is('refrensi-tema*') | request()->is('judul-diterima*') | request()->is('form-pendaftaran*') | request()->is('pendaftaran/create') | request()->is('rekap-laporan*') | request()->is('penilaian-laporan*') | request()->is('logbook*') ? 'menu-open' : '') }}">
+      <li class="nav-item {{ (request()->is('refrensi-tema*') || request()->is('judul-diterima*') || request()->is('form-pendaftaran*') || request()->is('pendaftaran/create') || request()->is('rekap-laporan*') || request()->is('penilaian-laporan*') || request()->is('logbook*') ? 'menu-open' : '') }}">
         <a class="nav-link d-flex align-items-center">
           <i class="nav-icon fa fa-circle"></i>
           <p>

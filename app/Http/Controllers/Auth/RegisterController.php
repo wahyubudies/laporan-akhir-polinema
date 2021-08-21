@@ -30,16 +30,16 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo;
+    protected $redirectTo = null;
     public function redirectTo()
     {
         switch (Auth::user()->role) {
-            case 'admin':
-                $this->redirectTo = 'admin/persyaratan';
+            case 'pembimbing':
+                $this->redirectTo = 'persyaratan';
                 return $this->redirectTo;
                 break;
             case 'mahasiswa':
-                $this->redirectTo = 'mahasiswa/persyaratan';
+                $this->redirectTo = 'persyaratan';
                 return $this->redirectTo;
                 break;  
             default:
