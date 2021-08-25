@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function(){
   Route::get('qrcode-generator', [DataLogbookController::class, 'qrcodeGenerator'])->name('qrcode-generator');
   Route::post('qrcode-generator', [DataLogbookController::class, 'qrcodeGeneratorStore'])->name('qrcode-generator.store');
   Route::get('qrcode-generator/download/{id}', [DataLogbookController::class, 'qrcodeGeneratorDownlaod'])->name('qrcode-generator.download');
-  Route::get('logbook/list-logbook', [DataLogbookController::class, 'listLogbook'])->middleware(['admin', 'pembimbing', 'auth'])->name('list.logbook');
+  Route::get('logbook/list-logbook', [DataLogbookController::class, 'listLogbook'])->middleware('pembimbing')->name('list.logbook');
   Route::get('logbok/logbook-excel/{id}', [LogbookController::class, 'exportExcel'])->name('logbook.export');
   Route::get('logbook/data-logbook-excel', [DataLogbookController::class, 'exportExcel'])->name('data-logbook.export');
   Route::put('logbook/generate-code-dospem1/{id}', [DataLogbookController::class, 'generateQrCode1'])->name('data-logbook.code1');

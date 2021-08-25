@@ -107,7 +107,7 @@ class PengumumanController extends Controller
     public function download($id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
-        $file = public_path().'/storage/pengumumans/'.$pengumuman->file_upload;        
+        $file = storage_path().'/app/public/pengumumans/'.$pengumuman->file_upload;        
         return response()->download($file);
     }
 }

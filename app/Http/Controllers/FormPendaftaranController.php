@@ -87,9 +87,9 @@ class FormPendaftaranController extends Controller
         ]);
         if(!$form)
         {
-            return redirect()->route('form-pendaftaran.guest')->with(['error' => 'Data gagal disimpan!!']);            
+            return redirect()->route('form-pendaftaran.index')->with(['error' => 'Data gagal disimpan!!']);            
         }else{
-            return redirect()->route('form-pendaftaran.guest')->with(['success' => 'Data berhasil disimpan!!']);
+            return redirect()->route('form-pendaftaran.index')->with(['success' => 'Data berhasil disimpan!!']);
         }
     }
     public function destroy($id)
